@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {
   StyleSheet,
-  Text,
+  //Text,
   View,
   Alert,
   Dimensions,
@@ -10,7 +10,7 @@ import {
   Picker
 //  Image
 } from 'react-native';
-import { ListItem, Button } from 'react-native-elements';
+import { ListItem, Button, Text, Input } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
@@ -18,7 +18,7 @@ import Mesh from '../mesh/index';
 //import Image from 'react-native-scalable-image';
 import Icon from 'react-native-vector-icons';
 
-//console.log(Mesh)
+console.log('Mesh', Mesh)
 
 //const doubleArrow = require('../assets/double-arrow.png');
 
@@ -114,26 +114,31 @@ export default function Setup() {
     const setup = Mesh[meshName]['setup'];
 
     return (
-      <View>
+      <View style={{ height: 'auto', borderColor: 'cyan', borderWidth: 1 }}>
         {Object.keys(setup).map(prop => (
-          <ListItem key={prop}>
-            <Text>{prop}</Text>
-            <TextInput>{setup[prop]}</TextInput>
-          </ListItem>
+          <View
+            key={prop}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
+            }}
+          >
+            <Text style={{ color: 'black' }}>{prop}</Text>
+            <Input style={{ color: 'black', margin: 'auto' }} value={String(setup[prop])} />
+          </View>
         ))}
       </View>
     );
   }
 
   const getMeshSetupView = (i) => {
-//    console.log('state.mesh', state.mesh);
-
     return (
-      <View>
+      <View style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch'}}>
         {getMeshPicker(i)}
 
         {state.mesh[i]
-          ? getMeshParams()
+          ? getMeshParams(i)
           : null
         }
       </View>

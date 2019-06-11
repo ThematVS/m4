@@ -10,6 +10,8 @@ const setup = {
 }
 
 const SvgComponent = props => {
+  //console.log('props', props);
+
   const {
     patternWidth = setup.patternWidth,
     patternHeight = setup.patternHeight,
@@ -36,7 +38,7 @@ const SvgComponent = props => {
 }
 
 export default {
-  name: 'Circle',
+  name: 'Circle mesh',
   description: 'Circle with center and radius setup',
   setup,
   getMesh: (props) => SvgComponent(props),

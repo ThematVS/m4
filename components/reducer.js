@@ -13,7 +13,7 @@ export function reducer(state, action) {
 
   switch (action.type) {
     case all.TOGGLE_SETUP:
-      console.log('toggle');
+      //console.log('toggle');
       newState.showSetup = !state.showSetup
       return newState;
       break;
@@ -26,24 +26,20 @@ export function reducer(state, action) {
     case all.SELECT_MESH:
       const { meshName, index } = action;
       
-      newState.mesh.splice(index, 1, {
+      newState.mesh[index] = {
         name: meshName
-      })
-      /*
-      let mesh = state.mesh.slice()
-      mesh[index] = {
-        name: meshName
-      };
-      */
+      }
+/*
       console.log('SELECT_MESH ---------------------------');
       console.log('SELECT_MESH action', action);
       console.log('SELECT_MESH newState', newState);
-      //return Object.assign({}, newState, {mesh});
+      */
       return newState
       break;
 
     case all.TOGGLE_PLAYBACK:
       newState.isPlaying = !state.isPlaying
+      newState.showSetup = !newState.isPlaying
       return newState
       break;
 
