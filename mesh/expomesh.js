@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Animated } from 'react-native';
 import { Constants, Svg } from 'expo';
+import { Easing } from 'react-native-reanimated';
 
 const setup = {
   patternWidth: 10,
@@ -10,10 +11,29 @@ const setup = {
   r: 3,
 }
 
+const spinValue = new Animated.Value(0)
+
 const SvgComponent = props => {
+  Animated.loop(
+    Animated.timing(spinValue, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: true
+    }),
+    {
+      iterations: -1
+    }
+  ).start();
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  });
+
   return (
-    <View style={styles.container}>
-      <Svg height={100} width={100}>
+    <Animated.View style={[styles.container, { transform: [{rotate: spin}]}]}>
+      <Svg height={100} width={100} >
         <Svg.Circle
           cx={50}
           cy={50}
@@ -32,7 +52,7 @@ const SvgComponent = props => {
           fill="#3498db"
         />
       </Svg>
-    </View>
+    </Animated.View>
   );
 }
 
