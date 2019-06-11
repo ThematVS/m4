@@ -1,0 +1,4 @@
+export const SELECT_MESH = 'SELECT_MESH';
+export const TOGGLE_MESH = 'TOGGLE_MESH';
+export const TOGGLE_SETUP = 'TOGGLE_SETUP';
+export const TOGGLE_PLAYBACK = 'TOGGLE_PLAYBACK';

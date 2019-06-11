@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <pattern id="circle" patternUnits="userSpaceOnUse" width="10" height="10">
+        <circle cx="5" cy="5" r="3" fill="black" />
+    </pattern>
+
+    <mask id="mask">
+      <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+      <rect x="0" y="0" width="100%" height="100%" fill="url(#circle)"/>
+    </mask>
+  </defs>
+  <rect width="100%" height="100%" mask="url(#mask)" fill="black"/>    
+</svg>
