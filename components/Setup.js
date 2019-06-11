@@ -72,21 +72,26 @@ export default function Setup() {
     dispatch({ type: action.TOGGLE_PLAYBACK });
   };
 
-  const handleSelectMesh = (meshName, index) => {
+  const handleSelectMesh = (meshIndex, meshName) => {
     //console.log('Option selected:', meshName);
-    dispatch({ type: action.SELECT_MESH, meshName, index: index - 1 });
+    if (!meshName) {
+      return;
+    }
+    dispatch({ type: action.SELECT_MESH, meshName, index: meshIndex });
   };
 
   const getMeshDescription = () => {
   }
 
-  const getMeshPicker = (i) => {
+  const getMeshPicker = (meshIndex) => {
     //console.log('getMeshPicker --------------------------------');
     //console.log(i, state.mesh)
     return (
       <Picker
-        selectedValue={(state.mesh[i] && state.mesh[i].name) || null}
-        onValueChange={handleSelectMesh}
+        selectedValue={
+          (state.mesh[meshIndex] && state.mesh[meshIndex].name) || null
+        }
+        onValueChange={(meshName, index) => handleSelectMesh(meshIndex, meshName)}
         mode="dialog"
       >
         {availableMeshes.map((el, i) => (

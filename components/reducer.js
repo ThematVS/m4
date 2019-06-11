@@ -9,7 +9,7 @@ export const initialState = {
 }
 
 export function reducer(state, action) {
-  const newState = Object.assign({}, state)
+  const newState = JSON.parse(JSON.stringify(state))
 
   switch (action.type) {
     case all.TOGGLE_SETUP:
@@ -25,10 +25,20 @@ export function reducer(state, action) {
 
     case all.SELECT_MESH:
       const { meshName, index } = action;
-      newState.mesh[index] = {
+      
+      newState.mesh.splice(index, 1, {
         name: meshName
-      }
-      console.log('SELECT_MESH newState', newState, index);
+      })
+      /*
+      let mesh = state.mesh.slice()
+      mesh[index] = {
+        name: meshName
+      };
+      */
+      console.log('SELECT_MESH ---------------------------');
+      console.log('SELECT_MESH action', action);
+      console.log('SELECT_MESH newState', newState);
+      //return Object.assign({}, newState, {mesh});
       return newState
       break;
 
