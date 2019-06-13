@@ -52,11 +52,20 @@ export function reducer(state, action) {
     
       log()
 
-      newState.mesh[index].setup[param] = value
+      newState.mesh[index].setup['params'][param] = value
       return newState
     }
 
-    case all.RESET_MESH_PARAM: {
+    case all.SET_MESH_TRANSFORM: {
+      const { index, param, value } = action;
+
+      log()
+
+      newState.mesh[index].setup['transforms'][param] = value
+      return newState
+    }
+
+    case all.RESET_MESH_SETUP: {
       const { index } = action;
       const meshName = newState.mesh[index].name
 

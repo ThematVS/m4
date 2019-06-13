@@ -3,13 +3,17 @@ import { Animated } from 'react-native';
 import Svg, { Defs, Pattern, Circle, Rect } from 'react-native-svg'
 import { Easing } from 'react-native-reanimated';
 import MeshStyles from './styles';
+import Transforms from './transforms';
 
 const setup = {
-  patternWidth: 10,
-  patternHeight: 10,
-  cx: 5,
-  cy: 5,
-  r: 3,
+  params: {
+    patternWidth: 10,
+    patternHeight: 10,
+    cx: 5,
+    cy: 5,
+    r: 3,
+  },
+  transforms: Transforms,
 }
 
 const spinValue = new Animated.Value(0)

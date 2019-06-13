@@ -94,18 +94,11 @@ export default function Setup() {
     );
   }
 
-  /**
-   * Form mesh params sheet
-   */
   const getMeshParams = (i) => {
-    if (!state.mesh[i]) {
-      return null
-    }
-//    const meshName = state.mesh[i]['name'];
-    const setup = state.mesh[i]['setup'];
+    const setup = state.mesh[i]['setup'].params;
 
     return (
-      <View style={{ height: 'auto', borderColor: 'cyan', borderWidth: 1 }}>
+      <View>
         {Object.keys(setup).map(prop => (
           <View
             key={String(i + prop)}
@@ -123,11 +116,72 @@ export default function Setup() {
             />
           </View>
         ))}
+      </View>
+    );
+  }
+
+  const getMeshTransforms = (i) => {
+    const setup = state.mesh[i]['setup'].transforms;
+
+    return (
+      <View>
+        {Object.keys(setup).map(prop => (
+          <View
+            key={String(i + prop)}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
+            }}
+          >
+            <Text style={{ color: 'black' }}>{prop}</Text>
+            <Input
+              style={{ color: 'black', margin: 'auto' }}
+              value={String(setup[prop])}
+              onChangeText={(value) => { setMeshParam(i, prop, value) }}
+            />
+          </View>
+        ))}
+      </View>
+    );
+  }
+/*
+  <View style={[styles.border, {
+    flex: -1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    height: 'auto',
+  }]}>
+
+  </View>
+*/
+  /**
+   * Form mesh params sheet
+   */
+  const getMeshSetup = (i) => {
+    return (
+      <View style={[styles.border, {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        height: 'auto',
+      }]}>
+        <View style={[styles.border, {
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'stretch',
+          height: 'auto',
+        }]}>
+          {getMeshParams(i)}
+          {getMeshTransforms(i)}
+        </View>
+
         <Button
           title="Reset"
-          type="solid"
+          type="clear"
           raised={true}
-          buttonStyle={styles.playButton}
+          buttonStyle={styles.resetButton}
           disabled={false}
           onPress={() => {
             resetMeshParam(i);
@@ -143,7 +197,7 @@ export default function Setup() {
         {getMeshPicker(i)}
 
         {state.mesh[i]
-          ? getMeshParams(i)
+          ? getMeshSetup(i)
           : null
         }
       </View>
@@ -169,7 +223,7 @@ export default function Setup() {
         {state.mesh.map((l, i) => (
           <View key={i}>
             <ListItem
-              key={i}
+              key={'mesh' + i}
               leftIcon={{
                 name: state.meshEnabled[i] ? 'grid-on' : 'grid-off',
                 size: 25,
@@ -289,6 +343,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     backgroundColor: 'red',
+  },
+  resetButton: {
+    alignSelf: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 5,
+    marginBottom: 5,
   },
   border: {
     borderColor: 'blue',
