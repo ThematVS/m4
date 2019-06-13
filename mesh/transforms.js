@@ -1,6 +1,7 @@
 export default {
   rotate: {
-    duration: 10
+    duration: 10,
+    direction: 'CW'
   },
   scale: {
     from: 1,

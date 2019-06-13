@@ -64,6 +64,10 @@ export default function Setup() {
     dispatch({ type: action.SET_MESH_PARAM, index, param, value })
   }
 
+  const setMeshTransform = (index, param, value) => {
+    dispatch({ type: action.SET_MESH_TRANSFORM, index, param, value })
+  }
+
   const resetMeshParam = (index) => {
     dispatch({ type: action.RESET_MESH_PARAM, index })
   }
@@ -98,7 +102,12 @@ export default function Setup() {
     const setup = state.mesh[i]['setup'].params;
 
     return (
-      <View>
+      <View style={{
+        flex: 1,
+        maxWidth: '50%',
+        width: 'auto'
+      }}
+      >
         {Object.keys(setup).map(prop => (
           <View
             key={String(i + prop)}
@@ -120,28 +129,113 @@ export default function Setup() {
     );
   }
 
-  const getMeshTransforms = (i) => {
-    const setup = state.mesh[i]['setup'].transforms;
-
+  const rotateView = (i) => {
+    //buttonStyle = { styles.setupButton }
+    console.log('rotateView');
     return (
-      <View>
-        {Object.keys(setup).map(prop => (
-          <View
-            key={String(i + prop)}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center'
-            }}
-          >
-            <Text style={{ color: 'black' }}>{prop}</Text>
-            <Input
-              style={{ color: 'black', margin: 'auto' }}
-              value={String(setup[prop])}
-              onChangeText={(value) => { setMeshParam(i, prop, value) }}
-            />
-          </View>
-        ))}
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'flex-start',
+      }}
+      >
+        <Button
+          type="clear"
+          raised={false}
+          icon={{
+            name: 'rotate-left',
+            size: 25,
+            color: '#4388d6',
+            iconStyle: styleArrow
+          }}
+          onPress={() => {
+            setMeshTransform(i, '', '')
+          }}
+        />
+        <Button
+          type="outline"
+          raised={false}
+          icon={{
+            name: 'rotate-right',
+            size: 25,
+            color: '#4388d6',
+            iconStyle: styleArrow
+          }}
+          onPress={() => {
+            setMeshTransform(i, '', '')
+          }}
+        />
+        <Input
+          style={{ color: 'black', width: 30 }}
+          value={'10'}
+          onChangeText={(value) => { setMeshTransform(i, '', '') }}
+        />
+      </View>
+    )
+  }
+
+  const scaleView = (i) => {
+    return (
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'flex-start',
+      }}
+      >
+        <Button
+          type="clear"
+          raised={false}
+          icon={{
+            name: 'open-with',
+            size: 25,
+            color: '#4388d6',
+            iconStyle: styleArrow
+          }}
+          onPress={() => {
+            setMeshTransform(i, '', '')
+          }}
+        />
+        <Text>W</Text>
+        <Input
+          style={{ color: 'black', width: 30 }}
+          value={'10'}
+          onChangeText={(value) => { setMeshTransform(i, '', '') }}
+        />
+        <Text>H</Text>
+        <Input
+          style={{ color: 'black', width: 30 }}
+          value={'10'}
+          onChangeText={(value) => { setMeshTransform(i, '', '') }}
+        />
+      </View>
+    )
+  }
+
+  const skewXView = (i) => {
+    return null
+  }
+
+  const skewYView = (i) => {
+    return null
+  }
+
+  const getMeshTransforms = (i) => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          margin: 'auto',
+          width: 'auto',
+          maxWidth: '50%',
+        }}
+      >
+        {rotateView(i)}
+        {scaleView(i)}
+        {skewXView(i)}
+        {skewYView(i)}
       </View>
     );
   }
@@ -169,9 +263,10 @@ export default function Setup() {
       }]}>
         <View style={[styles.border, {
           flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'stretch',
-          height: 'auto',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          paddingLeft: 20,
+          paddingRight: 20
         }]}>
           {getMeshParams(i)}
           {getMeshTransforms(i)}
@@ -286,7 +381,7 @@ const styles = StyleSheet.create({
   container: {
     //flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     zIndex: 10,
