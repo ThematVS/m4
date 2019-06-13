@@ -20,14 +20,33 @@ export function reducer(state, action) {
   }
 
   switch (action.type) {
+
     case all.TOGGLE_SETUP: {
       //console.log('toggle');
       newState.showSetup = !state.showSetup
       return newState;
     }
 
+    case all.TOGGLE_PLAYBACK: {
+      const someEnabled = newState.meshEnabled.some((value, i) => value)
+      if (someEnabled) {
+        newState.isPlaying = !state.isPlaying
+        newState.showSetup = !newState.isPlaying
+      }
+      return newState
+    }
+
     case all.TOGGLE_ENABLE_MESH: {
-      newState.meshEnabled[action.index] = !newState.meshEnabled[action.index]
+      if (newState.mesh[action.index]) {
+        // if this mesh selected, we can toggle it
+        newState.meshEnabled[action.index] = !newState.meshEnabled[action.index]
+        
+        const someEnabled = newState.meshEnabled.some((value, i) => value)
+        // it's the last mesh that we disabled, need to stop playback
+        if (!someEnabled) {
+          newState.isPlaying = false
+        }
+      }
       return newState;
     }
 
@@ -82,12 +101,6 @@ export function reducer(state, action) {
       log()
 
       newState.mesh[index].setup.transforms = Object.assign({}, Mesh[meshName].setup.transforms)
-      return newState
-    }
-
-    case all.TOGGLE_PLAYBACK: {
-      newState.isPlaying = !state.isPlaying
-      newState.showSetup = !newState.isPlaying
       return newState
     }
 

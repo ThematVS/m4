@@ -11,7 +11,7 @@ export default function Player() {
 
   const showMesh = () => {
     return state.mesh.map((mesh, i) => {
-      if (!state.mesh[i]) { return null }
+      if (!state.mesh[i] || !state.meshEnabled[i]) { return null }
 
       const meshName = state.mesh[i].name
       const setup = state.mesh[i].setup['params']
