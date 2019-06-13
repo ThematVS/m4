@@ -29,6 +29,7 @@ export function reducer(state, action) {
 
     case all.TOGGLE_PLAYBACK: {
       const someEnabled = newState.meshEnabled.some((value, i) => value)
+
       if (someEnabled) {
         newState.isPlaying = !state.isPlaying
         newState.showSetup = !newState.isPlaying
