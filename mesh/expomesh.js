@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
-import { Constants, Svg } from 'expo';
+import Constants from 'expo-constants';
 import { Easing } from 'react-native-reanimated';
 
 const setup = {

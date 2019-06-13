@@ -15,33 +15,10 @@ const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
 import Mesh from '../mesh/index';
-//import Image from 'react-native-scalable-image';
 import Icon from 'react-native-vector-icons';
 
 console.log('Mesh', Mesh)
 
-//const doubleArrow = require('../assets/double-arrow.png');
-
-const list = [
-  {
-    name: 'Amy Farha',
-    avatar_url:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Vice President'
-  },
-  {
-    name: 'Chris Jackson',
-    avatar_url:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman'
-  },
-  {
-    name: 'Chris Jackson',
-    avatar_url:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman'
-  },
-];
 
 const availableMeshes = (() => {
   const options = [{ label: 'Select mesh type...', value: null }];
@@ -64,23 +41,31 @@ export default function Setup() {
     dispatch({ type: action.TOGGLE_SETUP });
   }
 
-  const toggleMesh = (index) => {
-    dispatch({ type: action.TOGGLE_MESH, index });
+  const toggleEnableMesh = (index) => {
+    dispatch({ type: action.TOGGLE_ENABLE_MESH, index });
   };
-
+  const toggleOpenMesh = (index) => {
+    dispatch({ type: action.TOGGLE_OPEN_MESH_SETUP, index });
+  };
+  
   const togglePlayback = () => {
     dispatch({ type: action.TOGGLE_PLAYBACK });
   };
 
-  const handleSelectMesh = (meshIndex, meshName) => {
+  const handleSelectMeshType = (meshIndex, meshName) => {
     //console.log('Option selected:', meshName);
     if (!meshName) {
       return;
     }
-    dispatch({ type: action.SELECT_MESH, meshName, index: meshIndex });
+    dispatch({ type: action.SELECT_MESH_TYPE, meshName, index: meshIndex });
   };
 
-  const getMeshDescription = () => {
+  const setMeshParam = (index, param, value) => {
+    dispatch({ type: action.SET_MESH_PARAM, index, param, value })
+  }
+
+  const resetMeshParam = (index) => {
+    dispatch({ type: action.RESET_MESH_PARAM, index })
   }
 
   const getMeshPicker = (meshIndex) => {
@@ -91,33 +76,39 @@ export default function Setup() {
         selectedValue={
           (state.mesh[meshIndex] && state.mesh[meshIndex].name) || null
         }
-        onValueChange={(meshName, index) => handleSelectMesh(meshIndex, meshName)}
+        onValueChange={(meshName, index) => handleSelectMeshType(meshIndex, meshName)}
         mode="dialog"
+        style={styles.border}
+        itemStyle={[{ height: 15 }]}
+        itemTextStyle={[{ fontSize: 8 }]}
+        textStyle={[{ fontSize: 8 }]}
       >
         {availableMeshes.map((el, i) => (
           <Picker.Item
-            key={i}
+            key={String(meshIndex + i)}
             label={el.label}
             value={el.value}
-            style={{ height: 20, fontSize: 12 }}
           />
         ))}
       </Picker>
     );
   }
 
+  /**
+   * Form mesh params sheet
+   */
   const getMeshParams = (i) => {
     if (!state.mesh[i]) {
       return null
     }
-    const meshName = state.mesh[i]['name'];
-    const setup = Mesh[meshName]['setup'];
+//    const meshName = state.mesh[i]['name'];
+    const setup = state.mesh[i]['setup'];
 
     return (
       <View style={{ height: 'auto', borderColor: 'cyan', borderWidth: 1 }}>
         {Object.keys(setup).map(prop => (
           <View
-            key={prop}
+            key={String(i + prop)}
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
@@ -125,9 +116,23 @@ export default function Setup() {
             }}
           >
             <Text style={{ color: 'black' }}>{prop}</Text>
-            <Input style={{ color: 'black', margin: 'auto' }} value={String(setup[prop])} />
+            <Input
+              style={{ color: 'black', margin: 'auto' }}
+              value={String(setup[prop])}
+              onChangeText={(value) => { setMeshParam(i, prop, value) }}
+            />
           </View>
         ))}
+        <Button
+          title="Reset"
+          type="solid"
+          raised={true}
+          buttonStyle={styles.playButton}
+          disabled={false}
+          onPress={() => {
+            resetMeshParam(i);
+          }}
+        />
       </View>
     );
   }
@@ -145,6 +150,11 @@ export default function Setup() {
     );
   }
 
+  const getMeshDescription = (i) => {
+    console.log('state.mesh[i]', state.mesh[i])
+    return state.mesh[i].description;
+  }
+
   const styleArrow = state.showSetup
     ? [styles.doubleArrowDown]
     : [styles.doubleArrowUp];
@@ -156,29 +166,41 @@ export default function Setup() {
   return (
     <View style={[styles.container]}>
       <View style={styleList}>
-        {list.map((l, i) => (
+        {state.mesh.map((l, i) => (
           <View key={i}>
             <ListItem
               key={i}
-              leftAvatar={{ source: { uri: l.avatar_url } }}
-              title={l.name}
-              subtitle={l.subtitle}
+              leftIcon={{
+                name: state.meshEnabled[i] ? 'grid-on' : 'grid-off',
+                size: 25,
+                color: '#000',
+              }}
+              chevron={{
+                name: state.meshOpened[i] ? 'expand-more' : 'chevron-right',
+                size: 25,
+                color: '#aaa'
+              }}
+              title={l ? l.name : 'No mesh selected'}
+              subtitle={l ? getMeshDescription(i) : null}
               switch={{
                 disabled: false,
                 onValueChange: () => {
-                  toggleMesh(i);
+                  toggleEnableMesh(i);
                 },
                 value: state.meshEnabled[i]
               }}
+              onPress={() => {
+                toggleOpenMesh(i);
+              }}
             />
-            {state.meshEnabled[i] ? getMeshSetupView(i) : null}
+            {state.meshOpened[i] ? getMeshSetupView(i) : null}
           </View>
         ))}
         <Button
-          title="Play"
+          title={state.isPlaying ? 'Stop' : 'Play'}
           type="solid"
           raised={true}
-          buttonStyle={styles.playButton}
+          buttonStyle={state.isPlaying ? styles.stopButton : styles.playButton}
           disabled={false}
           onPress={() => {
             togglePlayback();
@@ -190,7 +212,7 @@ export default function Setup() {
         <Button
           type="clear"
           raised={true}
-          buttonStyle={styles.playButton}
+          buttonStyle={styles.setupButton}
           icon={{
             name: 'filter-list',
             size: 25,
@@ -245,11 +267,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     overflow: 'hidden'
   },
+  setupButton: {
+    alignSelf: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 5,
+    marginBottom: 5,
+  },
   playButton: {
     alignSelf: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+    backgroundColor: '#4388d6',
+  },
+  stopButton: {
+    alignSelf: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: 'red',
+  },
+  border: {
+    borderColor: 'blue',
+    borderWidth: 1
+  },
 });
