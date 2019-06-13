@@ -65,13 +65,23 @@ export function reducer(state, action) {
       return newState
     }
 
-    case all.RESET_MESH_SETUP: {
+    case all.RESET_MESH_PARAMS: {
       const { index } = action;
       const meshName = newState.mesh[index].name
 
       log()
 
-      newState.mesh[index].setup = Object.assign({}, Mesh[meshName].setup)
+      newState.mesh[index].setup.params = Object.assign({}, Mesh[meshName].setup.params)
+      return newState
+    }
+
+    case all.RESET_MESH_TRANSFORMS: {
+      const { index } = action;
+      const meshName = newState.mesh[index].name
+
+      log()
+
+      newState.mesh[index].setup.transforms = Object.assign({}, Mesh[meshName].setup.transforms)
       return newState
     }
 

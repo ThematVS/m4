@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import {
   StyleSheet,
-  //Text,
   View,
   Alert,
   Dimensions,
   ScrollView,
   Animated,
   Picker
-//  Image
 } from 'react-native';
 import { ListItem, Button, Text, Input } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
 import Mesh from '../mesh/index';
+import ParamsSetup from './ParamsSetup';
+import TransformsSetup from './TransformsSetup';
 import Icon from 'react-native-vector-icons';
 
 console.log('Mesh', Mesh)
@@ -60,18 +60,6 @@ export default function Setup() {
     dispatch({ type: action.SELECT_MESH_TYPE, meshName, index: meshIndex });
   };
 
-  const setMeshParam = (index, param, value) => {
-    dispatch({ type: action.SET_MESH_PARAM, index, param, value })
-  }
-
-  const setMeshTransform = (index, param, value) => {
-    dispatch({ type: action.SET_MESH_TRANSFORM, index, param, value })
-  }
-
-  const resetMeshParam = (index) => {
-    dispatch({ type: action.RESET_MESH_PARAM, index })
-  }
-
   const getMeshPicker = (meshIndex) => {
     //console.log('getMeshPicker --------------------------------');
     //console.log(i, state.mesh)
@@ -98,190 +86,16 @@ export default function Setup() {
     );
   }
 
-  const getMeshParams = (i) => {
-    const setup = state.mesh[i]['setup'].params;
-
-    return (
-      <View style={{
-        flex: 1,
-        maxWidth: '50%',
-        width: 'auto'
-      }}
-      >
-        {Object.keys(setup).map(prop => (
-          <View
-            key={String(i + prop)}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center'
-            }}
-          >
-            <Text style={{ color: 'black' }}>{prop}</Text>
-            <Input
-              style={{ color: 'black', margin: 'auto' }}
-              value={String(setup[prop])}
-              onChangeText={(value) => { setMeshParam(i, prop, value) }}
-            />
-          </View>
-        ))}
-      </View>
-    );
-  }
-
-  const rotateView = (i) => {
-    //buttonStyle = { styles.setupButton }
-    console.log('rotateView');
-    return (
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'flex-start',
-      }}
-      >
-        <Button
-          type="clear"
-          raised={false}
-          icon={{
-            name: 'rotate-left',
-            size: 25,
-            color: '#4388d6',
-            iconStyle: styleArrow
-          }}
-          onPress={() => {
-            setMeshTransform(i, '', '')
-          }}
-        />
-        <Button
-          type="outline"
-          raised={false}
-          icon={{
-            name: 'rotate-right',
-            size: 25,
-            color: '#4388d6',
-            iconStyle: styleArrow
-          }}
-          onPress={() => {
-            setMeshTransform(i, '', '')
-          }}
-        />
-        <Input
-          style={{ color: 'black', width: 30 }}
-          value={'10'}
-          onChangeText={(value) => { setMeshTransform(i, '', '') }}
-        />
-      </View>
-    )
-  }
-
-  const scaleView = (i) => {
-    return (
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'flex-start',
-      }}
-      >
-        <Button
-          type="clear"
-          raised={false}
-          icon={{
-            name: 'open-with',
-            size: 25,
-            color: '#4388d6',
-            iconStyle: styleArrow
-          }}
-          onPress={() => {
-            setMeshTransform(i, '', '')
-          }}
-        />
-        <Text>W</Text>
-        <Input
-          style={{ color: 'black', width: 30 }}
-          value={'10'}
-          onChangeText={(value) => { setMeshTransform(i, '', '') }}
-        />
-        <Text>H</Text>
-        <Input
-          style={{ color: 'black', width: 30 }}
-          value={'10'}
-          onChangeText={(value) => { setMeshTransform(i, '', '') }}
-        />
-      </View>
-    )
-  }
-
-  const skewXView = (i) => {
-    return null
-  }
-
-  const skewYView = (i) => {
-    return null
-  }
-
-  const getMeshTransforms = (i) => {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          margin: 'auto',
-          width: 'auto',
-          maxWidth: '50%',
-        }}
-      >
-        {rotateView(i)}
-        {scaleView(i)}
-        {skewXView(i)}
-        {skewYView(i)}
-      </View>
-    );
-  }
-/*
-  <View style={[styles.border, {
-    flex: -1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    height: 'auto',
-  }]}>
-
-  </View>
-*/
   /**
    * Form mesh params sheet
    */
   const getMeshSetup = (i) => {
     return (
-      <View style={[styles.border, {
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-        height: 'auto',
-      }]}>
-        <View style={[styles.border, {
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          paddingLeft: 20,
-          paddingRight: 20
-        }]}>
-          {getMeshParams(i)}
-          {getMeshTransforms(i)}
+      <View style={[styles.border, styles.meshSetupContainer]}>
+        <View style={[styles.border, styles.meshParamsTransformsContainer]}>
+          <ParamsSetup meshIndex={i} />
+          <TransformsSetup meshIndex={i} />
         </View>
-
-        <Button
-          title="Reset"
-          type="clear"
-          raised={true}
-          buttonStyle={styles.resetButton}
-          disabled={false}
-          onPress={() => {
-            resetMeshParam(i);
-          }}
-        />
       </View>
     );
   }
@@ -445,6 +259,38 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     marginTop: 5,
     marginBottom: 5,
+  },
+
+  meshSetupContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    height: 'auto',
+  },
+  meshParamsTransformsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  meshParamsContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    margin: 'auto',
+    width: 'auto',
+    maxWidth: '50%',
+  },
+  meshTransformsContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    margin: 'auto',
+    width: 'auto',
+    maxWidth: '50%',
   },
   border: {
     borderColor: 'blue',
