@@ -38,7 +38,7 @@ export default function Setup() {
    */
   const getMeshSetup = (i) => {
     return (
-      <View style={[styles.border, styles.meshSetupContainer]}>
+      <View style={[styles.border, styles.meshParamsTransformsContainer]}>
         <ParamsSetup meshIndex={i} />
         <TransformsSetup meshIndex={i} />
       </View>
@@ -47,7 +47,7 @@ export default function Setup() {
 
   const getMeshSetupView = (i) => {
     return (
-      <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <View style={[styles.meshSetupContainer]}>
         <MeshPicker meshIndex={i} />
 
         {state.mesh[i]
@@ -205,30 +205,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-
   meshSetupContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    alignItems: 'stretch'
+  },
+  meshParamsTransformsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'stretch',
-    height: 'auto',
-  },
-  meshParamsContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 'auto',
-    width: 'auto',
-    maxWidth: '50%',
-  },
-  meshTransformsContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 'auto',
-    width: 'auto',
-    maxWidth: '50%',
   },
   border: {
     borderColor: 'blue',

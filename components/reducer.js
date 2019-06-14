@@ -77,11 +77,11 @@ export function reducer(state, action) {
     }
 
     case all.SET_MESH_TRANSFORM: {
-      const { index, param, value } = action;
+      const { index, transform, param, value } = action;
 
       log()
 
-      newState.mesh[index].setup['transforms'][param] = value
+      newState.mesh[index].setup['transforms'][transform][param] = value
       return newState
     }
 
@@ -102,6 +102,18 @@ export function reducer(state, action) {
       log()
 
       newState.mesh[index].setup.transforms = Object.assign({}, Mesh[meshName].setup.transforms)
+      return newState
+    }
+
+    case all.TOGGLE_MESH_TRANSFORM: {
+      const { index, transform } = action;
+      const meshName = newState.mesh[index].name
+      const enabled = !newState.mesh[index].setup.transforms[transform].enabled
+
+      newState.mesh[index].setup.transforms[transform] = Object.assign(
+        {}, Mesh[meshName].setup.transforms[transform], { enabled }
+      )
+      log()
       return newState
     }
 

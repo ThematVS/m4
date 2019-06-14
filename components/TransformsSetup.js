@@ -5,27 +5,32 @@ import {
   Alert,
   Dimensions
 } from 'react-native';
-import { Button, Text, Input } from 'react-native-elements';
+import { Button, Text, Input, Icon } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
-import Icon from 'react-native-vector-icons';
+//import Icon from 'react-native-vector-icons';
 
 
 export default function ({ meshIndex }) {
   const { state, dispatch } = useContext(AppContext);
 
-  const setMeshTransform = (index, param, value) => {
-    dispatch({ type: action.SET_MESH_TRANSFORM, index, param, value })
-  }
-
-  const resetMeshTransforms = (index) => {
-    dispatch({ type: action.RESET_MESH_TRANSFORMS, index })
+  const setMeshTransform = (transform, param, value) => {
+    dispatch({ type: action.SET_MESH_TRANSFORM, index: meshIndex, transform, param, value })
   }
   
-  const rotateView = (i) => {
-    //buttonStyle = { styles.setupButton }
-    console.log('rotateView');
+  const resetMeshTransforms = () => {
+    dispatch({ type: action.RESET_MESH_TRANSFORMS, index: meshIndex
+    })
+  }
+
+  const toggleMeshTransform = (transform) => {
+    dispatch({ type: action.TOGGLE_MESH_TRANSFORM, index: meshIndex, transform })
+  }
+
+  const setup = state.mesh[meshIndex]['setup'].transforms;
+
+  const rotateView = () => {
     return (
       <View style={{
         flexDirection: 'row',
@@ -34,88 +39,197 @@ export default function ({ meshIndex }) {
       }}
       >
         <Button
-          type="clear"
+          type={setup.rotate['direction'] === 'CCW' ? 'solid' : "clear"}
           raised={false}
           icon={{
             name: 'rotate-left',
             size: 25,
-            color: '#4388d6',
+            color: setup.rotate['direction'] === 'CCW' ? '#fff' : '#4388d6'
           }}
           onPress={() => {
-            setMeshTransform(i, '', '')
+            setMeshTransform('rotate', 'direction', 'CCW')
           }}
         />
         <Button
-          type="outline"
+          type={setup.rotate['direction'] === 'CW' ? 'solid' : "clear"}
           raised={false}
           icon={{
             name: 'rotate-right',
             size: 25,
-            color: '#4388d6',
+            color: setup.rotate['direction'] === 'CW' ? '#fff' : '#4388d6'
           }}
           onPress={() => {
-            setMeshTransform(i, '', '')
+            setMeshTransform('rotate', 'direction', 'CW')
           }}
         />
         <Input
-          style={{ color: 'black', width: 30 }}
-          value={'10'}
-          onChangeText={(value) => { setMeshTransform(i, '', '') }}
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          value={String(setup.rotate['duration'])}
+          maxLength={3}
+          onChangeText={(value) => { setMeshTransform('rotate', 'duration', value) }}
         />
       </View>
     )
   }
 
-  const scaleView = (i) => {
+  const scaleXView = () => {
+    const enabled = setup.scaleX.enabled
+    const color = enabled ? styles.enabled.color : styles.disabled.color
+
     return (
       <View style={{
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        alignItems: 'flex-start',
+        alignItems: 'center',
       }}
       >
         <Button
-          type="clear"
+          containerStyle={{ flex: 0, marginRight: 10 }}
+          type={enabled ? 'solid' : "clear"}
           raised={false}
           icon={{
-            name: 'open-with',
+            name: 'vibration',
             size: 25,
-            color: '#4388d6',
+            color: enabled ? '#fff' : '#4388d6'
           }}
           onPress={() => {
-            setMeshTransform(i, '', '')
+            toggleMeshTransform('scaleX')
           }}
         />
-        <Text>W</Text>
         <Input
-          style={{ color: 'black', width: 30 }}
-          value={'10'}
-          onChangeText={(value) => { setMeshTransform(i, '', '') }}
-        />
-        <Text>H</Text>
-        <Input
-          style={{ color: 'black', width: 30 }}
-          value={'10'}
-          onChangeText={(value) => { setMeshTransform(i, '', '') }}
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
+          value={String(setup.scaleX['to'])}
+          maxLength={3}
+          editable={enabled}
+          onChangeText={(value) => { setMeshTransform('scaleX', 'to', value) }}
         />
       </View>
     )
   }
 
-  const skewXView = (i) => {
-    return null
+  const scaleYView = () => {
+    const enabled = setup.scaleY.enabled
+    const color = enabled ? styles.enabled.color : styles.disabled.color
+
+    return (
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+      }}
+      >
+        <Button
+          containerStyle={{ flex: 0, marginRight: 10 }}
+          type={enabled ? 'solid' : "clear"}
+          raised={false}
+          icon={{
+            name: 'vibration',
+            size: 25,
+            color: enabled ? '#fff' : '#4388d6',
+            iconStyle: { transform: [{ rotate: '90deg' }]}
+          }}
+          onPress={() => {
+            toggleMeshTransform('scaleY')
+          }}
+        />
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
+          value={String(setup.scaleY['to'])}
+          maxLength={3}
+          editable={enabled}
+          onChangeText={(value) => { setMeshTransform('scaleY', 'to', value) }}
+        />
+      </View>
+    )
   }
 
-  const skewYView = (i) => {
-    return null
+  const skewXView = () => {
+    const enabled = setup.skewX.enabled
+    const color = enabled ? styles.enabled.color : styles.disabled.color
+
+    return (
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+      }}
+      >
+        <Button
+          containerStyle={{ flex: 0, marginRight: 10 }}
+          type={enabled ? 'solid' : "clear"}
+          raised={false}
+          icon={{
+            name: 'swap-horiz',
+            size: 25,
+            color: enabled ? '#fff' : '#4388d6'
+          }}
+          onPress={() => {
+            toggleMeshTransform('skewX')
+          }}
+        />
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
+          value={String(setup.skewX['to'])}
+          maxLength={3}
+          editable={enabled}
+          onChangeText={(value) => { setMeshTransform('skewX', 'to', value) }}
+        />
+      </View>
+    )
+  }
+
+  const skewYView = () => {
+    const enabled = setup.skewY.enabled
+    const color = enabled ? styles.enabled.color : styles.disabled.color
+
+    return (
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+      }}
+      >
+        <Button
+          containerStyle={{ flex: 0, marginRight: 10 }}
+          type={enabled ? 'solid' : "clear"}
+          raised={false}
+          icon={{
+            name: 'swap-vert',
+            size: 25,
+            color: enabled ? '#fff' : '#4388d6'
+          }}
+          onPress={() => {
+            toggleMeshTransform('skewY')
+          }}
+        />
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
+          value={String(setup.skewY['to'])}
+          maxLength={3}
+          editable={enabled}
+          onChangeText={(value) => { setMeshTransform('skewY', 'to', value) }}
+        />
+      </View>
+    )
   }
 
   return (
-    <View style={styles.meshTransformsContainer}>
-      {rotateView(meshIndex)}
-      {scaleView(meshIndex)}
-      {skewXView(meshIndex)}
-      {skewYView(meshIndex)}
+    <View style={[styles.border, styles.container]}>
+      {rotateView()}
+      {scaleXView()}
+      {scaleYView()}
+      {skewXView()}
+      {skewYView()}
 
       <Button
         title="Reset"
@@ -124,39 +238,23 @@ export default function ({ meshIndex }) {
         buttonStyle={styles.resetButton}
         disabled={false}
         onPress={() => {
-          resetMeshTransforms(meshIndex);
+          resetMeshTransforms();
         }}
       />
     </View>
   )
-  /*
-    <View style={[styles.border, {
-      flex: -1,
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'stretch',
-      height: 'auto',
-    }]}>
-  
-    </View>
-  */
 }
 
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexGrow: 0,
-    flexShrink: 0,
-    flexBasis: 'auto',
+  container: {
+    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 40,
-    paddingTop: 5,
-    paddingBottom: 5,
-    marginTop: 'auto',
-    borderColor: 'blue',
-    borderWidth: 1
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    maxWidth: '50%',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   resetButton: {
     alignSelf: 'center',
@@ -165,40 +263,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-
-  meshSetupContainer: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    height: 'auto',
+  enabled: {
+    color: '#000'
   },
-  meshParamsTransformsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  meshParamsContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 'auto',
-    width: 'auto',
-    maxWidth: '50%',
-  },
-  meshTransformsContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 'auto',
-    width: 'auto',
-    maxWidth: '50%',
+  disabled: {
+    color: '#aaa'
   },
   border: {
-    borderColor: 'blue',
+    borderColor: 'green',
     borderWidth: 1
   },
 });

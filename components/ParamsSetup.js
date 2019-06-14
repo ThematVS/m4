@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Alert,
-  Dimensions
+  Dimensions,
+  TextInput
 } from 'react-native';
 import { Button, Text, Input } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
@@ -26,20 +27,19 @@ export default function ({ meshIndex }) {
   const setup = state.mesh[meshIndex]['setup'].params;
 
   return (
-    <View style={styles.meshParamsContainer}>
+    <View style={[styles.border, styles.container]}>
       {Object.keys(setup).map(prop => (
         <View
           key={String(meshIndex + prop)}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            alignItems: 'center'
-          }}
+          style={styles.paramsContainer}
         >
-          <Text style={{ color: 'black' }}>{prop}</Text>
+          <Text style={{ flex: 0 }}>{prop}</Text>
           <Input
-            style={{ color: 'black', margin: 'auto' }}
+            containerStyle={{ flex: 1, margin: 'auto' }}
+            inputContainerStyle={{ paddingRight: 5 }}
+            inputStyle={{ fontSize: 14, textAlign: 'right' }}
             value={String(setup[prop])}
+            maxLength={3}
             onChangeText={(value) => { setMeshParam(meshIndex, prop, value) }}
           />
         </View>
@@ -51,7 +51,7 @@ export default function ({ meshIndex }) {
         buttonStyle={styles.resetButton}
         disabled={false}
         onPress={() => {
-          resetMeshParams(i);
+          resetMeshParams(meshIndex);
         }}
       />
     </View>
@@ -60,28 +60,18 @@ export default function ({ meshIndex }) {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
+    flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'stretch',
     justifyContent: 'flex-start',
-    zIndex: 10,
-    borderColor: 'red',
-    borderWidth: 1
+    alignItems: 'stretch',
+    maxWidth: '50%',
   },
-  buttonContainer: {
-    flexGrow: 0,
-    flexShrink: 0,
-    flexBasis: 'auto',
-    flexDirection: 'column',
-    justifyContent: 'center',
+  paramsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    height: 40,
-    paddingTop: 5,
-    paddingBottom: 5,
-    marginTop: 'auto',
-    borderColor: 'blue',
-    borderWidth: 1
+    paddingLeft: 10,
+    paddingRight: 10
   },
   resetButton: {
     alignSelf: 'center',
@@ -90,40 +80,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-
-  meshSetupContainer: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    height: 'auto',
-  },
-  meshParamsTransformsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  meshParamsContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 'auto',
-    width: 'auto',
-    maxWidth: '50%',
-  },
-  meshTransformsContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 'auto',
-    width: 'auto',
-    maxWidth: '50%',
-  },
   border: {
-    borderColor: 'blue',
+    borderColor: 'magenta',
     borderWidth: 1
   },
 });

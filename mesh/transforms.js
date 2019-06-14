@@ -1,18 +1,23 @@
 export default {
   rotate: {
     duration: 10,
-    direction: 'CW'
+    direction: 'CW',
+    enabled: true
   },
-  scale: {
-    from: 1,
-    to: 0.7
+  scaleX: {
+    to: 0.7,
+    enabled: false
+  },
+  scaleY: {
+    to: 0.7,
+    enabled: false
   },
   skewX: {
-    from: 0,
-    to: 20
+    to: 20,
+    enabled: false
   },
   skewY: {
-    from: 0,
-    to: 20
+    to: 20,
+    enabled: false
   },
 }
