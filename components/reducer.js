@@ -170,6 +170,15 @@ export function reducer(state, action) {
     case all.SET_MESH_TRANSFORM: {
       const { index, transform, param, value } = action;
 
+      if (transform === 'rotate' && param === 'direction') {
+        // rotation buttons can be unchecked
+        if (state.mesh[index].setup['transforms'][transform][param] === value) {
+          // click on selected button
+          newState.mesh[index].setup['transforms'][transform][param] = null
+
+          return newState
+        }
+      }
       newState.mesh[index].setup['transforms'][transform][param] = value
       return newState
     }
