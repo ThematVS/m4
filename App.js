@@ -1,12 +1,13 @@
 import React, { useReducer } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { reducer, initialState } from './components/reducer';
+import { reducer, initialState, forcedState } from './components/reducer';
 import AppContext from './components/AppContext';
 import Player from './components/Player'
 import Setup from './components/Setup';
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  //const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, forcedState);
 
   return (
     <View style={styles.container}>

@@ -4,6 +4,7 @@ const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 
 const MAX_SIZE = Math.round(Math.sqrt(windowHeight * windowHeight + windowWidth * windowWidth))
 
+// mesh styles for player
 export default StyleSheet.create({
   container: {
     flexDirection: 'column',

@@ -19,7 +19,7 @@ const setup = {
 const spinValue = new Animated.Value(0)
 
 const SvgComponent = props => {
-  //console.log('props', props);
+  console.log('svg');
 
   const {
     patternWidth = setup.patternWidth,
@@ -31,6 +31,8 @@ const SvgComponent = props => {
 
   spinValue.stopAnimation()
 
+  spinValue.setValue(0);
+
   Animated.loop(
     Animated.timing(spinValue, {
       toValue: 1,
@@ -41,7 +43,8 @@ const SvgComponent = props => {
     {
       iterations: -1
     }
-  ).start();
+  )
+  //.start();
 
   const spin = spinValue.interpolate({
     inputRange: [0, 1],

@@ -10,6 +10,98 @@ export const initialState = {
   showSetup: false,
 }
 
+export const forcedState = {
+  isPlaying: false,
+  mesh: [
+    {
+      description: "Circle with center and radius setup",
+      name: "Circle mesh",
+      setup: {
+        params: {
+          cx: 5,
+          cy: 5,
+          patternHeight: 10,
+          patternWidth: 10,
+          r: 3,
+        },
+        transforms: {
+          rotate: {
+            direction: "CW",
+            duration: 10,
+            enabled: true,
+          },
+          scaleX: {
+            enabled: false,
+            to: 0.7,
+          },
+          scaleY: {
+            enabled: false,
+            to: 0.7,
+          },
+          skewX: {
+            enabled: false,
+            to: 20,
+          },
+          skewY: {
+            enabled: false,
+            to: 20,
+          },
+        },
+      },
+    },
+    {
+      description: "Rectangle with mask",
+      name: "Masked rectangle",
+      setup: {
+        params: {
+          h: 8,
+          patternHeight: 10,
+          patternWidth: 10,
+          w: 4,
+          x: 2,
+          y: 2,
+        },
+        transforms: {
+          rotate: {
+            direction: "CW",
+            duration: 10,
+            enabled: true,
+          },
+          scaleX: {
+            enabled: false,
+            to: 0.7,
+          },
+          scaleY: {
+            enabled: false,
+            to: 0.7,
+          },
+          skewX: {
+            enabled: false,
+            to: 20,
+          },
+          skewY: {
+            enabled: false,
+            to: 20,
+          },
+        },
+      },
+    },
+    null,
+  ],
+  meshEnabled: [
+    true,
+    true,
+    false,
+  ],
+  meshOpened: [
+    false,
+    false,
+    false,
+  ],
+  showSetup: false,
+}
+
+
 export function reducer(state, action) {
   const newState = JSON.parse(JSON.stringify(state))
 
@@ -34,6 +126,7 @@ export function reducer(state, action) {
         newState.isPlaying = !state.isPlaying
         newState.showSetup = !newState.isPlaying
       }
+      //console.log('newState', newState)
       return newState
     }
 
@@ -70,16 +163,12 @@ export function reducer(state, action) {
     case all.SET_MESH_PARAM: {
       const { index, param, value } = action;
     
-      log()
-
       newState.mesh[index].setup['params'][param] = value
       return newState
     }
 
     case all.SET_MESH_TRANSFORM: {
       const { index, transform, param, value } = action;
-
-      log()
 
       newState.mesh[index].setup['transforms'][transform][param] = value
       return newState
@@ -89,8 +178,6 @@ export function reducer(state, action) {
       const { index } = action;
       const meshName = newState.mesh[index].name
 
-      log()
-
       newState.mesh[index].setup.params = Object.assign({}, Mesh[meshName].setup.params)
       return newState
     }
@@ -98,8 +185,6 @@ export function reducer(state, action) {
     case all.RESET_MESH_TRANSFORMS: {
       const { index } = action;
       const meshName = newState.mesh[index].name
-
-      log()
 
       newState.mesh[index].setup.transforms = Object.assign({}, Mesh[meshName].setup.transforms)
       return newState
@@ -113,12 +198,12 @@ export function reducer(state, action) {
       newState.mesh[index].setup.transforms[transform] = Object.assign(
         {}, Mesh[meshName].setup.transforms[transform], { enabled }
       )
-      log()
       return newState
     }
 
     default: {
-      return initialState;
+      //return forcedState
+      //return initialState
     }
   }
 }

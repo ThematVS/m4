@@ -208,7 +208,8 @@ const styles = StyleSheet.create({
   meshSetupContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    backgroundColor: '#eee',
   },
   meshParamsTransformsContainer: {
     flexDirection: 'row',
