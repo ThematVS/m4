@@ -9,6 +9,7 @@ import { Button, Text, Input, Icon } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
+import FLAGS from './flags';
 //import Icon from 'react-native-vector-icons';
 
 
@@ -271,6 +272,6 @@ const styles = StyleSheet.create({
   },
   border: {
     borderColor: 'green',
-    borderWidth: 1
+    borderWidth: FLAGS.enableBorders && 1
   },
 });

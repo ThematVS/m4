@@ -13,6 +13,7 @@ import * as action from './actions';
 import MeshPicker from './MeshPicker';
 import ParamsSetup from './ParamsSetup';
 import TransformsSetup from './TransformsSetup';
+import FLAGS from './flags';
 import Icon from 'react-native-vector-icons';
 
 export default function Setup() {
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     zIndex: 10,
     borderColor: 'red',
-    borderWidth: 1
+    borderWidth: FLAGS.enableBorders && 1
   },
   panel: {
     backgroundColor: '#fee'
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginTop: 'auto',
     borderColor: 'blue',
-    borderWidth: 1
+    borderWidth: FLAGS.enableBorders && 1
   },
   doubleArrowDown: {},
   doubleArrowUp: {
@@ -171,9 +172,9 @@ const styles = StyleSheet.create({
   list: {
     flex: -1,
     minHeight: 0,
+    overflow: 'hidden',
     borderColor: 'green',
-    borderWidth: 1,
-    overflow: 'hidden'
+    borderWidth: FLAGS.enableBorders && 1,
   },
   setupButton: {
     alignSelf: 'center',
@@ -218,6 +219,6 @@ const styles = StyleSheet.create({
   },
   border: {
     borderColor: 'blue',
-    borderWidth: 1
+    borderWidth: FLAGS.enableBorders && 1
   },
 });

@@ -1,6 +1,6 @@
 import React from 'react'
-import Svg, { Defs, Pattern, Mask, Rect } from 'react-native-svg'
 import { Animated } from 'react-native';
+import Svg, { Defs, Pattern, Mask, Circle, Rect } from 'react-native-svg'
 import { Easing } from 'react-native-reanimated';
 import MeshStyles from './styles';
 import Transforms from './transforms';
@@ -9,10 +9,9 @@ const setup = {
   params: {
     patternWidth: 10,
     patternHeight: 10,
-    x: 2,
-    y: 2,
-    w: 4,
-    h: 8
+    cx: 5,
+    cy: 5,
+    r: 3,
   },
   transforms: Transforms,
 }
@@ -20,13 +19,14 @@ const setup = {
 const spinValue = new Animated.Value(0)
 
 const SvgComponent = props => {
+  console.log('svg');
+
   const {
     patternWidth = setup.patternWidth,
     patternHeight = setup.patternHeight,
-    x = setup.x,
-    y = setup.y,
-    w = setup.w,
-    h = setup.h
+    cx = setup.cx,
+    cy = setup.cy,
+    r = setup.r
   } = props;
 
   spinValue.stopAnimation()
@@ -36,7 +36,7 @@ const SvgComponent = props => {
   Animated.loop(
     Animated.timing(spinValue, {
       toValue: 1,
-      duration: 20000,
+      duration: 15000,
       easing: Easing.linear,
       useNativeDriver: true
     }),
@@ -48,7 +48,7 @@ const SvgComponent = props => {
 
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '-360deg']
+    outputRange: ['0deg', '360deg']
   });
 
   return (
@@ -61,27 +61,22 @@ const SvgComponent = props => {
             width={patternWidth}
             height={patternHeight}
           >
-            <Rect x={x} y={y} width={w} height={h} fill="black" />
+            <Circle cx={cx} cy={cy} r={r} fill="#000" />
           </Pattern>
           <Mask id="prefix__b">
             <Rect width="100%" height="100%" fill="#fff" />
             <Rect width="100%" height="100%" fill="url(#prefix__a)" />
           </Mask>
         </Defs>
-        <Rect
-          width="100%"
-          height="100%"
-          mask="url(#prefix__b)"
-          fill="#151515"
-        />
+        <Rect width="100%" height="100%" mask="url(#prefix__b)" fill="#151515" />
       </Svg>
     </Animated.View>
-  );
+  )
 }
 
 export default {
-  name: 'Masked rectangle',
-  description: 'Rectangle with mask',
+  name: 'Circle with mask',
+  description: 'Masked circle with center and radius setup',
   setup,
-  getMesh: props => SvgComponent(props)
-};
+  getMesh: (props) => SvgComponent(props),
+}

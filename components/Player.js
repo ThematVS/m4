@@ -4,6 +4,7 @@ const { height: windowHeight, width: windowWidth } = Dimensions.get('window')
 import Constants from 'expo-constants'
 import AppContext from './AppContext'
 import Mesh from '../mesh/index'
+import FLAGS from './flags';
 
 
 export default function Player() {
@@ -25,8 +26,10 @@ export default function Player() {
   }
 
   return (
-    <View style={styles.container}>
-      {state.isPlaying ? showMesh() : null}
+    <View style={[styles.container]}>
+      <View style={[styles.meshPositioner]}>
+        {state.isPlaying ? showMesh() : null}
+      </View>
     </View>
   );
 }
@@ -34,12 +37,19 @@ export default function Player() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#f6f6f6',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
     paddingTop: Constants.statusBarHeight,
     paddingBottom: 0,
     overflow: 'hidden',
-    zIndex: 1
+  },
+  meshPositioner: {
+    width: '100%',
+    height: '100%',
+  },
+  border: {
+    borderColor: 'blue',
+    borderWidth: FLAGS.enableBorders && 3
   },
 });

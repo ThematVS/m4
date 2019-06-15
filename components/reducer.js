@@ -14,8 +14,8 @@ export const forcedState = {
   isPlaying: false,
   mesh: [
     {
-      description: "Circle with center and radius setup",
-      name: "Circle mesh",
+      description: "Masked circle with center and radius setup",
+      name: "Circle with mask",
       setup: {
         params: {
           cx: 5,

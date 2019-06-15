@@ -11,6 +11,7 @@ const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
 import Mesh from '../mesh/index';
+import FLAGS from './flags';
 import Icon from 'react-native-vector-icons';
 
 
@@ -64,6 +65,6 @@ export default function ({ meshIndex }) {
 const styles = StyleSheet.create({
   border: {
     borderColor: 'blue',
-    borderWidth: 1
+    borderWidth: FLAGS.enableBorders && 1
   },
 });
