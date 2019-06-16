@@ -60,7 +60,7 @@ export default function Setup() {
   }
 
   const getMeshDescription = (i) => {
-    console.log('state.mesh[i]', state.mesh[i])
+    //console.log('state.mesh[i]', state.mesh[i])
     return state.mesh[i].description;
   }
 

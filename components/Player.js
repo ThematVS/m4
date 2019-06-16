@@ -15,7 +15,7 @@ export default function Player() {
       if (!state.mesh[i] || !state.meshEnabled[i]) { return null }
 
       const meshName = state.mesh[i].name
-      const setup = state.mesh[i].setup['params']
+      const setup = state.mesh[i].setup
 
       return (
         <View style={[{ zIndex: i + 10 }]} key={String(Math.random())}>

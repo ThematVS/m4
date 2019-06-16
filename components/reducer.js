@@ -175,11 +175,12 @@ export function reducer(state, action) {
         if (state.mesh[index].setup['transforms'][transform][param] === value) {
           // click on selected button
           newState.mesh[index].setup['transforms'][transform][param] = null
-
+          newState.mesh[index].setup['transforms'][transform].enabled = false
           return newState
         }
       }
       newState.mesh[index].setup['transforms'][transform][param] = value
+      newState.mesh[index].setup['transforms'][transform].enabled = true
       return newState
     }
 

@@ -5,6 +5,7 @@ import { Easing } from 'react-native-reanimated';
 import MeshStyles from './styles';
 import Transforms from './transforms';
 
+
 const setup = {
   params: {
     patternWidth: 10,
@@ -19,14 +20,15 @@ const setup = {
 const spinValue = new Animated.Value(0)
 
 const SvgComponent = props => {
-  console.log('svg');
-
   const {
-    patternWidth = setup.patternWidth,
-    patternHeight = setup.patternHeight,
-    cx = setup.cx,
-    cy = setup.cy,
-    r = setup.r
+    params: {
+      patternWidth = setup.patternWidth,
+      patternHeight = setup.patternHeight,
+      cx = setup.cx,
+      cy = setup.cy,
+      r = setup.r
+    },
+    transforms
   } = props;
 
   spinValue.stopAnimation()
@@ -36,19 +38,20 @@ const SvgComponent = props => {
   Animated.loop(
     Animated.timing(spinValue, {
       toValue: 1,
-      duration: 10000,
+      duration: transforms.rotate.duration * 1000,
       easing: Easing.linear,
       useNativeDriver: true
     }),
     {
       iterations: -1
     }
-  )
-  .start();
+  ).start();
+
+  const direction = transforms.rotate.direction
 
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '360deg']
+    outputRange: ['0deg', direction === 'CW' ? '360deg' : (direction === 'CCW' ? '-360deg' : '0deg')]
   });
 
   return (
