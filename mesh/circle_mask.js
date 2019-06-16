@@ -1,9 +1,10 @@
 import React from 'react'
 import { Animated } from 'react-native';
 import Svg, { Defs, Pattern, Mask, Circle, Rect } from 'react-native-svg'
-import { Easing } from 'react-native-reanimated';
 import MeshStyles from './styles';
 import Transforms from './transforms';
+import Animation from './animation';
+
 
 const setup = {
   params: {
@@ -16,43 +17,23 @@ const setup = {
   transforms: Transforms,
 }
 
-const spinValue = new Animated.Value(0)
-
 const SvgComponent = props => {
-  console.log('svg');
-
   const {
-    patternWidth = setup.patternWidth,
-    patternHeight = setup.patternHeight,
-    cx = setup.cx,
-    cy = setup.cy,
-    r = setup.r
-  } = props;
+    params: {
+      patternWidth = setup.patternWidth,
+      patternHeight = setup.patternHeight,
+      cx = setup.cx,
+      cy = setup.cy,
+      r = setup.r
+    },
+    transforms
+  } = props
 
-  spinValue.stopAnimation()
-
-  spinValue.setValue(0);
-
-  Animated.loop(
-    Animated.timing(spinValue, {
-      toValue: 1,
-      duration: 15000,
-      easing: Easing.linear,
-      useNativeDriver: true
-    }),
-    {
-      iterations: -1
-    }
-  )
-  .start();
-
-  const spin = spinValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg']
-  });
+  // create animation based on transforms
+  const transformStyle = Animation.getStyles(transforms)
 
   return (
-    <Animated.View style={[MeshStyles.container, { transform: [{ rotate: spin }] }]} key={String(Math.random())}>
+    <Animated.View style={[MeshStyles.container, { transform: transformStyle }]} key={String(Math.random())}>
       <Svg height="100%" width="100%">
         <Defs>
           <Pattern
