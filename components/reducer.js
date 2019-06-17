@@ -33,18 +33,22 @@ export const forcedState = {
           scaleX: {
             enabled: false,
             to: 0.7,
+            duration: 2,
           },
           scaleY: {
             enabled: false,
             to: 0.7,
+            duration: 2,
           },
           skewX: {
             enabled: false,
             to: 20,
+            duration: 2,
           },
           skewY: {
             enabled: false,
             to: 20,
+            duration: 2,
           },
         },
       },
@@ -69,18 +73,22 @@ export const forcedState = {
           },
           scaleX: {
             enabled: false,
+            duration: 2,
             to: 0.7,
           },
           scaleY: {
             enabled: false,
+            duration: 2,
             to: 0.7,
           },
           skewX: {
             enabled: false,
+            duration: 2,
             to: 20,
           },
           skewY: {
             enabled: false,
+            duration: 2,
             to: 20,
           },
         },

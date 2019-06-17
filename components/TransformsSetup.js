@@ -108,6 +108,14 @@ export default function ({ meshIndex }) {
           editable={enabled}
           onChangeText={(value) => { setMeshTransform('scaleX', 'to', value) }}
         />
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          value={String(setup.scaleX['duration'])}
+          maxLength={3}
+          onChangeText={(value) => { setMeshTransform('scaleX', 'duration', value) }}
+        />
       </View>
     )
   }
@@ -146,6 +154,14 @@ export default function ({ meshIndex }) {
           editable={enabled}
           onChangeText={(value) => { setMeshTransform('scaleY', 'to', value) }}
         />
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          value={String(setup.scaleY['duration'])}
+          maxLength={3}
+          onChangeText={(value) => { setMeshTransform('scaleY', 'duration', value) }}
+        />
       </View>
     )
   }
@@ -173,6 +189,7 @@ export default function ({ meshIndex }) {
           onPress={() => {
             toggleMeshTransform('skewX')
           }}
+          disabled
         />
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
@@ -182,6 +199,15 @@ export default function ({ meshIndex }) {
           maxLength={3}
           editable={enabled}
           onChangeText={(value) => { setMeshTransform('skewX', 'to', value) }}
+        />
+        <Text>&deg;</Text>
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          value={String(setup.skewX['duration'])}
+          maxLength={3}
+          onChangeText={(value) => { setMeshTransform('skewX', 'duration', value) }}
         />
       </View>
     )
@@ -210,6 +236,7 @@ export default function ({ meshIndex }) {
           onPress={() => {
             toggleMeshTransform('skewY')
           }}
+          disabled
         />
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
@@ -219,6 +246,15 @@ export default function ({ meshIndex }) {
           maxLength={3}
           editable={enabled}
           onChangeText={(value) => { setMeshTransform('skewY', 'to', value) }}
+        />
+        <Text>&deg;</Text>
+        <Input
+          containerStyle={{ flex: 1, margin: 'auto' }}
+          inputContainerStyle={{ paddingRight: 5 }}
+          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          value={String(setup.skewY['duration'])}
+          maxLength={3}
+          onChangeText={(value) => { setMeshTransform('skewY', 'duration', value) }}
         />
       </View>
     )

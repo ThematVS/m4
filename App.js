@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { reducer, initialState, forcedState } from './components/reducer';
 import AppContext from './components/AppContext';
 import Player from './components/Player'
