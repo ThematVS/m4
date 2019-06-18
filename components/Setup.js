@@ -6,16 +6,17 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-import { ListItem, Button, Text, Input } from 'react-native-elements';
-const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
-import AppContext from './AppContext';
-import * as action from './actions';
-import MeshPicker from './MeshPicker';
-import PresetPicker from './PresetPicker';
-import ParamsSetup from './ParamsSetup';
-import TransformsSetup from './TransformsSetup';
-import FLAGS from './flags';
-import Icon from 'react-native-vector-icons';
+import { ListItem, Button, Text, Input } from 'react-native-elements'
+import DialogInput from 'react-native-dialog-input'
+const { height: windowHeight, width: windowWidth } = Dimensions.get('window')
+import AppContext from './AppContext'
+import * as action from './actions'
+import MeshPicker from './MeshPicker'
+import PresetPicker from './PresetPicker'
+import ParamsSetup from './ParamsSetup'
+import TransformsSetup from './TransformsSetup'
+import FLAGS from './flags'
+import Icon from 'react-native-vector-icons'
 
 export default function Setup() {
   const { state, dispatch } = useContext(AppContext);
@@ -30,10 +31,31 @@ export default function Setup() {
   const toggleOpenMesh = (index) => {
     dispatch({ type: action.TOGGLE_OPEN_MESH_SETUP, index });
   };
-  
+
+  const toggleInputName = () => {
+    dispatch({ type: action.TOGGLE_INPUT_NAME });
+  }
+
   const togglePlayback = () => {
     dispatch({ type: action.TOGGLE_PLAYBACK });
   };
+
+  const loadPreset = (setup) => {
+    console.log('setup', setup);
+    
+    dispatch({ type: action.LOAD_PRESET, setup });
+  }
+
+  const savePreset = () => {
+    if (!state.presetSelected) {
+      toggleInputName()
+    }
+    dispatch({ type: action.SAVE_PRESET });
+  }
+
+  const setNewPresetName = (presetName) => {
+    dispatch({ type: action.SET_PRESET_NAME, presetName });
+  }
 
   /**
    * Form mesh params sheet
@@ -61,15 +83,14 @@ export default function Setup() {
   }
 
   const getMeshDescription = (i) => {
-    //console.log('state.mesh[i]', state.mesh[i])
     return state.mesh[i].description;
   }
 
-  const styleArrow = state.showSetup
+  const styleArrow = state.setupOpened
     ? [styles.doubleArrowDown]
     : [styles.doubleArrowUp];
 
-  const styleList = state.showSetup
+  const styleList = state.setupOpened
     ? [styles.list, { height: 'auto' }]
     : [styles.list, { height: 0 }];
 
@@ -107,10 +128,10 @@ export default function Setup() {
           </View>
         ))}
         <View style={styles.setupButtonContainer}>
-          <PresetPicker />
+          <PresetPicker onSelect={(presetSetup) => loadPreset(presetSetup)} />
           <Button
             type="solid"
-            raised={true}
+            raised={false}
             buttonStyle={[styles.button, styles.playButton, state.isPlaying ? styles.stopButton : null]}
             disabled={false}
             icon={{
@@ -120,19 +141,29 @@ export default function Setup() {
               iconStyle: styleArrow
             }}
             onPress={() => {
-              togglePlayback();
+              togglePlayback()
             }}
           />
           <Button
             title={'Save'}
             type="solid"
-            raised={true}
+            raised={false}
             buttonStyle={[styles.button, state.isPlaying ? styles.saveButton : styles.saveButton]}
             disabled={false}
             onPress={() => {
-              //togglePlayback();
+              savePreset()
             }}
           />
+
+          <DialogInput isDialogVisible={state.inputNameOpened}
+            title={null}
+            message={'Input unique preset name'}
+            hintInput={'Preset #1'}
+            submitInput={(presetName) => { setNewPresetName(presetName) }}
+            closeDialog={() => {
+              toggleInputName()
+            }}>
+          </DialogInput>
         </View>
       </View>
 
@@ -209,45 +240,16 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-  setupButton: {
-    /*
-    alignSelf: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 5,
-    marginBottom: 5,
-    */
-  },
   playButton: {
-    /*
-    alignSelf: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 5,
-    marginBottom: 5,
-    */
     backgroundColor: '#00964b',
   },
   stopButton: {
     backgroundColor: '#c02f1d',
   },
   saveButton: {
-    /*
-    alignSelf: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 5,
-    marginBottom: 5,
-    */
     backgroundColor: '#4388d6',
   },
   resetButton: {
-    /*
-    alignSelf: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 5,
-    */
     marginBottom: 5,
   },
   meshSetupContainer: {

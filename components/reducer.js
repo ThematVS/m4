@@ -1,5 +1,6 @@
 import * as all from './actions';
 import Mesh from '../mesh/index';
+import presets from '../mesh/presets.json'
 import { Alert } from 'react-native';
 
 export const initialState = {
@@ -7,7 +8,9 @@ export const initialState = {
   meshEnabled: [false, false, false],
   meshOpened: [false, false, false],
   isPlaying: false,
-  showSetup: false,
+  setupOpened: false,
+  inputNameOpened: false,
+  presetSelected: null,
 }
 
 export const forcedState = {
@@ -106,7 +109,7 @@ export const forcedState = {
     false,
     false,
   ],
-  showSetup: false,
+  setupOpened: false,
 }
 
 
@@ -122,8 +125,7 @@ export function reducer(state, action) {
   switch (action.type) {
 
     case all.TOGGLE_SETUP: {
-      //console.log('toggle');
-      newState.showSetup = !state.showSetup
+      newState.setupOpened = !state.setupOpened
       return newState;
     }
 
@@ -132,9 +134,8 @@ export function reducer(state, action) {
 
       if (someEnabled) {
         newState.isPlaying = !state.isPlaying
-        newState.showSetup = !newState.isPlaying
+        newState.setupOpened = !newState.isPlaying
       }
-      //console.log('newState', newState)
       return newState
     }
 
@@ -216,6 +217,33 @@ export function reducer(state, action) {
       newState.mesh[index].setup.transforms[transform] = Object.assign(
         {}, Mesh[meshName].setup.transforms[transform], { enabled }
       )
+      return newState
+    }
+
+    case all.TOGGLE_INPUT_NAME: {
+      newState.inputNameOpened = !state.inputNameOpened
+      return newState
+    }
+
+    case all.SET_PRESET_NAME: {
+      newState.presetSelected = action.presetName
+      return newState
+    }
+
+    case all.LOAD_PRESET: {
+      const { setup } = action
+
+      newState.presetSelected = setup.name
+      newState.mesh = setup.mesh
+      return newState
+    }
+
+    case all.SAVE_PRESET: {
+      if (preset.find((preset) => preset.name === state.presetSelected)) {
+        // changing existing loaded preset
+      } else {
+        // save new preset
+      }
       return newState
     }
 

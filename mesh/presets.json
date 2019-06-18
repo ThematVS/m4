@@ -1,0 +1,88 @@
+[
+  {
+    "name": "Preset #1",
+    "mesh": [
+      {
+        "description": "Masked circle with center and radius setup",
+        "name": "Circle with mask",
+        "setup": {
+          "params": {
+            "cx": 5,
+            "cy": 5,
+            "patternHeight": 10,
+            "patternWidth": 10,
+            "r": 3
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 10,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      },
+      {
+        "description": "Rectangle with mask",
+        "name": "Masked rectangle",
+        "setup": {
+          "params": {
+            "patternHeight": 10,
+            "patternWidth": 10,
+            "h": 8,
+            "w": 4,
+            "x": 2,
+            "y": 2
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 10,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  }
+]
