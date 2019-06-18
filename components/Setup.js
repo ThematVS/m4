@@ -11,6 +11,7 @@ const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from './AppContext';
 import * as action from './actions';
 import MeshPicker from './MeshPicker';
+import PresetPicker from './PresetPicker';
 import ParamsSetup from './ParamsSetup';
 import TransformsSetup from './TransformsSetup';
 import FLAGS from './flags';
@@ -105,23 +106,41 @@ export default function Setup() {
             {state.meshOpened[i] ? getMeshSetupView(i) : null}
           </View>
         ))}
-        <Button
-          title={state.isPlaying ? 'Stop' : 'Play'}
-          type="solid"
-          raised={true}
-          buttonStyle={state.isPlaying ? styles.stopButton : styles.playButton}
-          disabled={false}
-          onPress={() => {
-            togglePlayback();
-          }}
-        />
+        <View style={styles.setupButtonContainer}>
+          <PresetPicker />
+          <Button
+            type="solid"
+            raised={true}
+            buttonStyle={[styles.button, styles.playButton, state.isPlaying ? styles.stopButton : null]}
+            disabled={false}
+            icon={{
+              name: state.isPlaying ? 'stop' : 'play-arrow',
+              size: 25,
+              color: '#fff',
+              iconStyle: styleArrow
+            }}
+            onPress={() => {
+              togglePlayback();
+            }}
+          />
+          <Button
+            title={'Save'}
+            type="solid"
+            raised={true}
+            buttonStyle={[styles.button, state.isPlaying ? styles.saveButton : styles.saveButton]}
+            disabled={false}
+            onPress={() => {
+              //togglePlayback();
+            }}
+          />
+        </View>
       </View>
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.openSetupContainer}>
         <Button
           type="clear"
           raised={true}
-          buttonStyle={styles.setupButton}
+          buttonStyle={styles.button}
           icon={{
             name: 'filter-list',
             size: 25,
@@ -151,7 +170,7 @@ const styles = StyleSheet.create({
   panel: {
     backgroundColor: '#fee'
   },
-  buttonContainer: {
+  openSetupContainer: {
     flexGrow: 0,
     flexShrink: 0,
     flexBasis: 'auto',
@@ -165,6 +184,13 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: FLAGS.enableBorders && 1
   },
+  setupButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
   doubleArrowDown: {},
   doubleArrowUp: {
     transform: [{ rotate: '180deg' }]
@@ -176,34 +202,52 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     borderWidth: FLAGS.enableBorders && 1,
   },
-  setupButton: {
+  button: {
     alignSelf: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
     marginBottom: 5,
+  },
+  setupButton: {
+    /*
+    alignSelf: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    */
   },
   playButton: {
+    /*
     alignSelf: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: '#4388d6',
+    */
+    backgroundColor: '#00964b',
   },
   stopButton: {
+    backgroundColor: '#c02f1d',
+  },
+  saveButton: {
+    /*
     alignSelf: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: 'red',
+    */
+    backgroundColor: '#4388d6',
   },
   resetButton: {
+    /*
     alignSelf: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
+    */
     marginBottom: 5,
   },
   meshSetupContainer: {

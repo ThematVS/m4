@@ -32,6 +32,9 @@ export default function ({ meshIndex }) {
   const setup = state.mesh[meshIndex]['setup'].transforms;
 
   const rotateView = () => {
+    const enabled = setup.rotate.enabled
+    const color = enabled ? styles.enabled.color : styles.disabled.color
+
     return (
       <View style={{
         flexDirection: 'row',
@@ -66,10 +69,11 @@ export default function ({ meshIndex }) {
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
           inputContainerStyle={{ paddingRight: 5 }}
-          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.rotate['duration'])}
-          maxLength={3}
           keyboardType='numeric'
+          maxLength={3}
+          editable={enabled}
           onChangeText={(value) => { setMeshTransform('rotate', 'duration', value) }}
         />
       </View>
@@ -105,18 +109,19 @@ export default function ({ meshIndex }) {
           inputContainerStyle={{ paddingRight: 5 }}
           inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.scaleX['to'])}
+          keyboardType='numeric'
           maxLength={3}
           editable={enabled}
-          keyboardType='numeric'
           onChangeText={(value) => { setMeshTransform('scaleX', 'to', value) }}
         />
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
           inputContainerStyle={{ paddingRight: 5 }}
-          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.scaleX['duration'])}
-          maxLength={3}
           keyboardType='numeric'
+          maxLength={3}
+          editable={enabled}
           onChangeText={(value) => { setMeshTransform('scaleX', 'duration', value) }}
         />
       </View>
@@ -154,17 +159,18 @@ export default function ({ meshIndex }) {
           inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.scaleY['to'])}
           maxLength={3}
-          editable={enabled}
           keyboardType='numeric'
+          editable={enabled}
           onChangeText={(value) => { setMeshTransform('scaleY', 'to', value) }}
         />
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
           inputContainerStyle={{ paddingRight: 5 }}
-          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.scaleY['duration'])}
-          maxLength={3}
           keyboardType='numeric'
+          maxLength={3}
+          editable={enabled}
           onChangeText={(value) => { setMeshTransform('scaleY', 'duration', value) }}
         />
       </View>
@@ -201,19 +207,20 @@ export default function ({ meshIndex }) {
           inputContainerStyle={{ paddingRight: 5 }}
           inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.skewX['to'])}
+          keyboardType='numeric'
           maxLength={3}
           editable={enabled}
-          keyboardType='numeric'
           onChangeText={(value) => { setMeshTransform('skewX', 'to', value) }}
         />
         <Text>&deg;</Text>
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
           inputContainerStyle={{ paddingRight: 5 }}
-          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.skewX['duration'])}
-          maxLength={3}
           keyboardType='numeric'
+          maxLength={3}
+          editable={enabled}
           onChangeText={(value) => { setMeshTransform('skewX', 'duration', value) }}
         />
       </View>
@@ -250,19 +257,20 @@ export default function ({ meshIndex }) {
           inputContainerStyle={{ paddingRight: 5 }}
           inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.skewY['to'])}
+          keyboardType='numeric'
           maxLength={3}
           editable={enabled}
-          keyboardType='numeric'
           onChangeText={(value) => { setMeshTransform('skewY', 'to', value) }}
         />
         <Text>&deg;</Text>
         <Input
           containerStyle={{ flex: 1, margin: 'auto' }}
           inputContainerStyle={{ paddingRight: 5 }}
-          inputStyle={{ fontSize: 14, textAlign: 'right' }}
+          inputStyle={{ fontSize: 14, textAlign: 'right', color }}
           value={String(setup.skewY['duration'])}
-          maxLength={3}
           keyboardType='numeric'
+          maxLength={3}
+          editable={enabled}
           onChangeText={(value) => { setMeshTransform('skewY', 'duration', value) }}
         />
       </View>
