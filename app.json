@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Moire pattern experiment",
+    "githubUrl": "https://github.com/ThematVS/m4"
   }
 }

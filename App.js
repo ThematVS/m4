@@ -7,7 +7,7 @@ import Setup from './components/Setup';
 
 export default function App() {
   //const [state, dispatch] = useReducer(reducer, initialState);
-  const [state, dispatch] = useReducer(reducer, forcedState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <View style={styles.container}>

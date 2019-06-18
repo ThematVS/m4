@@ -41,6 +41,7 @@ export default function ({ meshIndex }) {
             inputStyle={{ fontSize: 14, textAlign: 'right' }}
             value={String(setup[prop])}
             maxLength={3}
+            keyboardType='numeric'
             onChangeText={(value) => { setMeshParam(meshIndex, prop, value) }}
           />
         </View>
