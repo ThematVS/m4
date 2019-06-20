@@ -47,14 +47,15 @@ export default function Setup() {
   }
 
   const savePreset = () => {
-    if (!state.presetSelected) {
+    //if (!state.presetSelected) {
       toggleInputName()
-    }
-    dispatch({ type: action.SAVE_PRESET });
+    //}
+    //dispatch({ type: action.SAVE_PRESET });
   }
 
   const setNewPresetName = (presetName) => {
     dispatch({ type: action.SET_PRESET_NAME, presetName });
+    dispatch({ type: action.TOGGLE_INPUT_NAME });
   }
 
   /**
@@ -145,11 +146,11 @@ export default function Setup() {
             }}
           />
           <Button
-            title={'Save'}
+            title={'Save as...'}
             type="solid"
             raised={false}
-            buttonStyle={[styles.button, state.isPlaying ? styles.saveButton : styles.saveButton]}
-            disabled={false}
+            buttonStyle={[styles.button]}
+            disabled={!state.canSave}
             onPress={() => {
               savePreset()
             }}
@@ -158,7 +159,8 @@ export default function Setup() {
           <DialogInput isDialogVisible={state.inputNameOpened}
             title={null}
             message={'Input unique preset name'}
-            hintInput={'Preset #1'}
+            hintInput={state.presetSelected || 'Preset #1'}
+            initValueTextInput={state.presetSelected || 'Preset #1'}
             submitInput={(presetName) => { setNewPresetName(presetName) }}
             closeDialog={() => {
               toggleInputName()

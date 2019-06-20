@@ -7,6 +7,7 @@ export const initialState = {
   mesh: [null, null, null],
   meshEnabled: [false, false, false],
   meshOpened: [false, false, false],
+  canSave: false,  // if at least one mesh set up
   isPlaying: false,
   setupOpened: false,
   inputNameOpened: false,
@@ -166,6 +167,8 @@ export function reducer(state, action) {
         setup: Mesh[meshName].setup,
         description: Mesh[meshName].description
       }
+      newState.canSave = newState.mesh.some((value, i) => value !== null)
+
       return newState
     }
 
