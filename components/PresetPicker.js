@@ -15,13 +15,25 @@ import FLAGS from '../library/flags'
 
 export default function ({ onSelect }) {
   const { state, dispatch } = useContext(AppContext)
-
+/*
   useEffect(() => {
     dispatch({ type: action.LOOKUP_PRESETS });
   })
-
+*/
   const handleSelectPreset = (presetName) => {
     presetName && onSelect && onSelect(presets.find((preset) => preset.name === presetName))
+  }
+
+  const listPresets = () => {
+    const options = [{ label: 'Select preset...', value: null }];
+
+    presets.map(preset => {
+      options.push({
+        label: preset.name,
+        value: preset.name
+      });
+    });
+    return options
   }
 
   return (
@@ -34,7 +46,7 @@ export default function ({ onSelect }) {
       itemTextStyle={[{ fontSize: 8 }]}
       textStyle={[{ fontSize: 8 }]}
     >
-      {state.foundPresets.map((el, i) => (
+      {listPresets()/*state.foundPresets*/.map((el, i) => (
         <Picker.Item
           key={el.label}
           label={el.label}

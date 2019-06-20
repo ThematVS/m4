@@ -230,8 +230,7 @@ export function reducer(state, action) {
     case all.TOGGLE_MESH_TRANSFORM: {
       const { index, transform } = action;
       const meshName = newState.mesh[index].name;
-      const enabled = !newState.mesh[index].setup.transforms[transform]
-        .enabled;
+      const enabled = !newState.mesh[index].setup.transforms[transform].enabled;
 
       newState.mesh[index].setup.transforms[transform] = Object.assign(
         {},
