@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window')
 import Constants from 'expo-constants'
-import AppContext from './AppContext'
+import AppContext from '../library/AppContext'
 import Mesh from '../mesh/index'
-import FLAGS from './flags';
+import FLAGS from '../library/flags';
 
 
 export default function Player() {

@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import { Button, Text, Input } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
-import AppContext from './AppContext';
-import * as action from './actions';
+import AppContext from '../library/AppContext';
+import * as action from '../library/actions';
 import Mesh from '../mesh/index';
-import FLAGS from './flags';
+import FLAGS from '../library/flags';
 import Icon from 'react-native-vector-icons';
 
 

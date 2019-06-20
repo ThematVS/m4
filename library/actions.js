@@ -1,4 +1,5 @@
-export const SET_PRESET_NAME = 'SET_PRESET_NAME';
+export const LOOKUP_PRESETS = 'LOOKUP_PRESETS';
+export const DELETE_PRESET = 'DELETE_PRESET';
 export const LOAD_PRESET = 'LOAD_PRESET';
 export const SAVE_PRESET = 'SAVE_PRESET';
 export const TOGGLE_INPUT_NAME = 'TOGGLE_INPUT_NAME';

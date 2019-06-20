@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   StyleSheet,
   View,
@@ -7,29 +7,21 @@ import {
   Text,
   Picker
 } from 'react-native'
-import AppContext from './AppContext'
-import * as FileSystem from 'expo-file-system'
+import AppContext from '../library/AppContext'
 import presets from '../mesh/presets.json'
-import FLAGS from './flags'
+import * as action from '../library/actions';
+import FLAGS from '../library/flags'
 
 
 export default function ({ onSelect }) {
   const { state, dispatch } = useContext(AppContext)
 
+  useEffect(() => {
+    dispatch({ type: action.LOOKUP_PRESETS });
+  })
+
   const handleSelectPreset = (presetName) => {
     presetName && onSelect && onSelect(presets.find((preset) => preset.name === presetName))
-  }
-
-  const listPresets = () => {
-    const options = [{ label: 'Select preset...', value: null }]
-
-    presets.map((preset) => {
-      options.push({
-        label: preset.name,
-        value: preset.name
-      });
-    })
-    return options
   }
 
   return (
@@ -37,12 +29,12 @@ export default function ({ onSelect }) {
       selectedValue={state.presetSelected || null}
       onValueChange={(presetName, index) => handleSelectPreset(presetName)}
       mode="dialog"
-      style={styles.border}
+      style={[styles.border, {flex: 1}]}
       itemStyle={[{ height: 15 }]}
       itemTextStyle={[{ fontSize: 8 }]}
       textStyle={[{ fontSize: 8 }]}
     >
-      {listPresets().map((el, i) => (
+      {state.foundPresets.map((el, i) => (
         <Picker.Item
           key={el.label}
           label={el.label}

@@ -9,13 +9,13 @@ import {
 import { ListItem, Button, Text, Input } from 'react-native-elements'
 import DialogInput from 'react-native-dialog-input'
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window')
-import AppContext from './AppContext'
-import * as action from './actions'
+import AppContext from '../library/AppContext'
+import * as action from '../library/actions'
 import MeshPicker from './MeshPicker'
 import PresetPicker from './PresetPicker'
 import ParamsSetup from './ParamsSetup'
 import TransformsSetup from './TransformsSetup'
-import FLAGS from './flags'
+import FLAGS from '../library/flags'
 import Icon from 'react-native-vector-icons'
 
 export default function Setup() {
@@ -41,21 +41,22 @@ export default function Setup() {
   };
 
   const loadPreset = (setup) => {
-    console.log('setup', setup);
+    //console.log('setup', setup);
     
     dispatch({ type: action.LOAD_PRESET, setup });
   }
 
-  const savePreset = () => {
-    //if (!state.presetSelected) {
-      toggleInputName()
-    //}
-    //dispatch({ type: action.SAVE_PRESET });
+  const savePreset = (presetName) => {
+    toggleInputName()
+    dispatch({ type: action.SAVE_PRESET, presetName });
   }
 
-  const setNewPresetName = (presetName) => {
-    dispatch({ type: action.SET_PRESET_NAME, presetName });
-    dispatch({ type: action.TOGGLE_INPUT_NAME });
+  const deletePreset = (presetName) => {
+    dispatch({ type: action.DELETE_PRESET, presetName });
+  }
+
+  const setNewPresetName = () => {
+    toggleInputName()
   }
 
   /**
@@ -130,11 +131,39 @@ export default function Setup() {
         ))}
         <View style={styles.setupButtonContainer}>
           <PresetPicker onSelect={(presetSetup) => loadPreset(presetSetup)} />
+          {/*
+          <Button
+            type="clear"
+            raised={false}
+            buttonStyle={[
+              styles.button, styles.stackedLeft, styles.noPadding,
+              state.isPlaying ? styles.stopButton : null]}
+            disabled={!state.canDelete}
+            icon={{
+              name: state.isPlaying ? 'delete-forever' : 'delete-forever',
+              size: 25,
+              color: state.canDelete ? '#f00' : '#ddd',
+              iconStyle: styleArrow
+            }}
+            onPress={() => {
+              deletePreset()
+            }}
+          />
+          <Button
+            title={'Save as...'}
+            type="solid"
+            raised={false}
+            buttonStyle={[styles.button]}
+            disabled={!state.canSave}
+            onPress={() => {
+              setNewPresetName()
+            }}
+          />*/}
           <Button
             type="solid"
             raised={false}
             buttonStyle={[styles.button, styles.playButton, state.isPlaying ? styles.stopButton : null]}
-            disabled={false}
+            disabled={!state.canPlay}
             icon={{
               name: state.isPlaying ? 'stop' : 'play-arrow',
               size: 25,
@@ -145,27 +174,17 @@ export default function Setup() {
               togglePlayback()
             }}
           />
-          <Button
-            title={'Save as...'}
-            type="solid"
-            raised={false}
-            buttonStyle={[styles.button]}
-            disabled={!state.canSave}
-            onPress={() => {
-              savePreset()
-            }}
-          />
-
+          {/*
           <DialogInput isDialogVisible={state.inputNameOpened}
             title={null}
             message={'Input unique preset name'}
-            hintInput={state.presetSelected || 'Preset #1'}
-            initValueTextInput={state.presetSelected || 'Preset #1'}
-            submitInput={(presetName) => { setNewPresetName(presetName) }}
+            initValueTextInput={state.presetSelected && state.presetSelected !== 'Demo Preset #1' ? state.presetSelected : 'Preset #1'}
+            submitInput={(presetName) => { savePreset(presetName) }}
             closeDialog={() => {
               toggleInputName()
             }}>
           </DialogInput>
+          */}
         </View>
       </View>
 
@@ -219,10 +238,11 @@ const styles = StyleSheet.create({
   },
   setupButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    //justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 10
   },
   doubleArrowDown: {},
   doubleArrowUp: {
@@ -233,40 +253,47 @@ const styles = StyleSheet.create({
     minHeight: 0,
     overflow: 'hidden',
     borderColor: 'green',
-    borderWidth: FLAGS.enableBorders && 1,
+    borderWidth: FLAGS.enableBorders && 1
   },
   button: {
     alignSelf: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 5,
-    marginBottom: 5,
+    marginBottom: 5
   },
   playButton: {
-    backgroundColor: '#00964b',
+    backgroundColor: '#00964b'
   },
   stopButton: {
-    backgroundColor: '#c02f1d',
+    backgroundColor: '#c02f1d'
   },
   saveButton: {
-    backgroundColor: '#4388d6',
+    backgroundColor: '#4388d6'
   },
   resetButton: {
-    marginBottom: 5,
+    marginBottom: 5
+  },
+  stackedLeft: {
+    marginRight: 'auto'
+  },
+  noPadding: {
+    paddingLeft: 0,
+    paddingRight: 0
   },
   meshSetupContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: '#eee',
+    backgroundColor: '#eee'
   },
   meshParamsTransformsContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
+    alignItems: 'stretch'
   },
   border: {
     borderColor: 'blue',
     borderWidth: FLAGS.enableBorders && 1
-  },
+  }
 });
