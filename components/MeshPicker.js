@@ -10,7 +10,7 @@ import { Button, Text, Input } from 'react-native-elements';
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
 import AppContext from '../library/AppContext';
 import * as action from '../library/actions';
-import Mesh from '../mesh/index';
+import Mesh from '../animation/index';
 import FLAGS from '../library/flags';
 import Icon from 'react-native-vector-icons';
 

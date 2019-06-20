@@ -1,9 +1,9 @@
 import React from 'react'
 import { Animated } from 'react-native';
 import Svg, { Defs, Pattern, Mask, Circle, Rect } from 'react-native-svg'
-import MeshStyles from './styles';
-import Transforms from './transforms';
-import Animation from './animation';
+import MeshStyles from '../animation/styles';
+import Transforms from '../animation/transforms';
+import Animation from '../animation/animation';
 
 
 const setup = {

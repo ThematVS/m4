@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native'
 const { height: windowHeight, width: windowWidth } = Dimensions.get('window')
 import Constants from 'expo-constants'
 import AppContext from '../library/AppContext'
-import Mesh from '../mesh/index'
+import Mesh from '../animation/index'
 import FLAGS from '../library/flags';
 
 

@@ -1,6 +1,6 @@
 import * as all from './actions';
-import Mesh from '../mesh/index';
-import presets from '../mesh/presets.json'
+import Mesh from '../animation/index';
+import presets from '../animation/presets.json'
 import { store, read } from '../library/storage'
 import { Alert } from 'react-native';
 

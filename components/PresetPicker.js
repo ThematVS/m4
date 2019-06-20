@@ -8,7 +8,7 @@ import {
   Picker
 } from 'react-native'
 import AppContext from '../library/AppContext'
-import presets from '../mesh/presets.json'
+import presets from '../animation/presets.json'
 import * as action from '../library/actions';
 import FLAGS from '../library/flags'
 
