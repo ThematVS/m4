@@ -258,6 +258,7 @@ export function reducer(state, action) {
       newState.meshOpened.splice(setup.mesh.length);
       newState.meshOpened.fill(false, setup.mesh.length);
 
+      newState.canPlay = true;
       newState.canSave = newState.mesh.some((value, i) => value !== null)
       newState.canDelete =
         newState.presetSelected &&
