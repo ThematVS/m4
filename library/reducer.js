@@ -154,6 +154,7 @@ export function reducer(state, action) {
         // it's the last mesh that we disabled, need to stop playback
         if (!someEnabled) {
           newState.isPlaying = false;
+          newState.canPlay = false;
         }
       }
       return newState;
@@ -243,15 +244,25 @@ export function reducer(state, action) {
     }
 
     case all.LOAD_PRESET: {
-      const { setup } = action;
+      const { setup } = action
 
-      newState.presetSelected = setup.name;
-      newState.mesh = setup.mesh;
-      newState.canSave = newState.mesh.some((value, i) => value !== null);
+      newState.presetSelected = setup.name
+      newState.mesh = [null, null, null]
+      newState.mesh.splice(0, setup.mesh.length, ...setup.mesh)
+
+      newState.meshEnabled = [true, true, true];
+      newState.meshEnabled.splice(setup.mesh.length);
+      newState.meshEnabled.fill(false, setup.mesh.length);
+
+      newState.meshOpened = [false, false, false];
+      newState.meshOpened.splice(setup.mesh.length);
+      newState.meshOpened.fill(false, setup.mesh.length);
+
+      newState.canSave = newState.mesh.some((value, i) => value !== null)
       newState.canDelete =
         newState.presetSelected &&
-        newState.presetSelected !== 'Demo Preset #1';
-      return newState;
+        newState.presetSelected !== 'Demo Preset #1'
+      return newState
     }
 
     case all.SAVE_PRESET: {

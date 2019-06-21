@@ -86,7 +86,7 @@ export default function Setup() {
   }
 
   const getMeshDescription = (i) => {
-    return Mesh[state.mesh[i].name].description;
+    return state.mesh[i] && Mesh[state.mesh[i].name].description;
   }
 
   const styleArrow = state.setupOpened

@@ -15,7 +15,7 @@
           "transforms": {
             "rotate": {
               "direction": "CW",
-              "duration": 10,
+              "duration": 15,
               "enabled": true
             },
             "scaleX": {
@@ -54,8 +54,8 @@
           },
           "transforms": {
             "rotate": {
-              "direction": "CW",
-              "duration": 10,
+              "direction": "CCW",
+              "duration": 20,
               "enabled": true
             },
             "scaleX": {
@@ -92,7 +92,8 @@
         "setup": {
           "params": {
             "patternHeight": 2,
-            "patternWidth": 4
+            "patternWidth": 4,
+            "rot": 45
           },
           "transforms": {
             "rotate": {
@@ -128,7 +129,8 @@
         "setup": {
           "params": {
             "patternHeight": 4,
-            "patternWidth": 2
+            "patternWidth": 2,
+            "rot": 45
           },
           "transforms": {
             "rotate": {
