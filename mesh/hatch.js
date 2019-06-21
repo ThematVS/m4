@@ -1,6 +1,6 @@
 import React from 'react'
 import { Animated } from 'react-native';
-import Svg, { Defs, Pattern, Path, Circle, Rect } from 'react-native-svg'
+import Svg, { Defs, Pattern, Path, Rect } from 'react-native-svg'
 import MeshStyles from '../animation/styles';
 import Transforms from '../animation/transforms';
 import Animation from '../animation/animation';
@@ -8,11 +8,9 @@ import Animation from '../animation/animation';
 
 const setup = {
   params: {
-    patternWidth: 10,
-    patternHeight: 10,
-    cx: 5,
-    cy: 5,
-    r: 3,
+    patternWidth: 4,
+    patternHeight: 4,
+    rot: 45,
   },
   transforms: Transforms,
 }
@@ -22,9 +20,7 @@ const SvgComponent = props => {
     params: {
       patternWidth = setup.patternWidth,
       patternHeight = setup.patternHeight,
-      cx = setup.cx,
-      cy = setup.cy,
-      r = setup.r
+      rot = setup.rot,
     },
     transforms
   } = props
@@ -41,8 +37,9 @@ const SvgComponent = props => {
             patternUnits="userSpaceOnUse"
             width={patternWidth}
             height={patternHeight}
+            patternTransform={`rotate(${rot})`}
           >
-            <Circle cx={cx} cy={cy} r={r} fill="none" stroke="#000" />
+            <Path stroke="#000" d="M2 0v4M0 2h4" />
           </Pattern>
         </Defs>
         <Rect width="100%" height="100%" fill="url(#prefix__a)" />
@@ -52,8 +49,8 @@ const SvgComponent = props => {
 }
 
 export default {
-  name: 'Circle mesh',
-  description: 'Circle with center and radius setup',
+  name: 'Hatch mesh',
+  description: 'Simple hatch',
   setup,
-  getMesh: (props) => SvgComponent(props),
-}
+  getMesh: props => SvgComponent(props)
+};

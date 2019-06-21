@@ -1,9 +1,8 @@
 [
   {
-    "name": "Demo Preset #1",
+    "name": "Demo Preset #1 (circle & rect)",
     "mesh": [
       {
-        "description": "Masked circle with center and radius setup",
         "name": "Circle with mask",
         "setup": {
           "params": {
@@ -43,7 +42,6 @@
         }
       },
       {
-        "description": "Rectangle with mask",
         "name": "Masked rectangle",
         "setup": {
           "params": {
@@ -58,6 +56,438 @@
             "rotate": {
               "direction": "CW",
               "duration": 10,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Demo Preset #2 (hatches)",
+    "mesh": [
+      {
+        "name": "Hatch mesh",
+        "setup": {
+          "params": {
+            "patternHeight": 2,
+            "patternWidth": 4
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      },
+      {
+        "name": "Hatch mesh",
+        "setup": {
+          "params": {
+            "patternHeight": 4,
+            "patternWidth": 2
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CCW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Demo Preset #3 (lines)",
+    "mesh": [
+      {
+        "name": "Line mesh",
+        "setup": {
+          "params": {
+            "patternWidth": 2,
+            "patternHeight": 1
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Demo Preset #4 (checkers 20x40)",
+    "mesh": [
+      {
+        "name": "Checkers",
+        "setup": {
+          "params": {
+            "patternHeight": 20,
+            "patternWidth": 40
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      },
+      {
+        "name": "Checkers",
+        "setup": {
+          "params": {
+            "patternHeight": 40,
+            "patternWidth": 20
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CCW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Demo Preset #5 (checkers 40)",
+    "mesh": [
+      {
+        "name": "Checkers",
+        "setup": {
+          "params": {
+            "patternHeight": 40,
+            "patternWidth": 40
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      },
+      {
+        "name": "Checkers",
+        "setup": {
+          "params": {
+            "patternHeight": 40,
+            "patternWidth": 40
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CCW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Demo Preset #6 (floor large)",
+    "mesh": [
+      {
+        "name": "Floor mesh",
+        "setup": {
+          "params": {
+            "patternHeight": 40,
+            "patternWidth": 40
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 40,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      },
+      {
+        "name": "Floor mesh",
+        "setup": {
+          "params": {
+            "patternHeight": 40,
+            "patternWidth": 40
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CCW",
+              "duration": 40,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  {
+    "name": "Demo Preset #6 (floor small)",
+    "mesh": [
+      {
+        "name": "Floor mesh",
+        "setup": {
+          "params": {
+            "patternHeight": 4,
+            "patternWidth": 4
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CW",
+              "duration": 20,
+              "enabled": true
+            },
+            "scaleX": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "scaleY": {
+              "enabled": false,
+              "to": 0.7,
+              "duration": 2
+            },
+            "skewX": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            },
+            "skewY": {
+              "enabled": false,
+              "to": 20,
+              "duration": 2
+            }
+          }
+        }
+      },
+      {
+        "name": "Floor mesh",
+        "setup": {
+          "params": {
+            "patternHeight": 4,
+            "patternWidth": 4
+          },
+          "transforms": {
+            "rotate": {
+              "direction": "CCW",
+              "duration": 20,
               "enabled": true
             },
             "scaleX": {

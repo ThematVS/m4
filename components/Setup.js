@@ -15,6 +15,7 @@ import MeshPicker from './MeshPicker'
 import PresetPicker from './PresetPicker'
 import ParamsSetup from './ParamsSetup'
 import TransformsSetup from './TransformsSetup'
+import Mesh from '../animation/index';
 import FLAGS from '../library/flags'
 import Icon from 'react-native-vector-icons'
 
@@ -85,7 +86,7 @@ export default function Setup() {
   }
 
   const getMeshDescription = (i) => {
-    return state.mesh[i].description;
+    return Mesh[state.mesh[i].name].description;
   }
 
   const styleArrow = state.setupOpened

@@ -22,7 +22,6 @@ export const forcedState = {
   isPlaying: false,
   mesh: [
     {
-      description: "Masked circle with center and radius setup",
       name: "Circle with mask",
       setup: {
         params: {
@@ -62,7 +61,6 @@ export const forcedState = {
       },
     },
     {
-      description: "Rectangle with mask",
       name: "Masked rectangle",
       setup: {
         params: {
@@ -172,7 +170,6 @@ export function reducer(state, action) {
       newState.mesh[index] = {
         name: meshName,
         setup: Mesh[meshName].setup,
-        description: Mesh[meshName].description
       };
       newState.canSave = newState.mesh.some((value, i) => value !== null);
 

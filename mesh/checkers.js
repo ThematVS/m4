@@ -8,11 +8,8 @@ import Animation from '../animation/animation';
 
 const setup = {
   params: {
-    patternWidth: 10,
-    patternHeight: 10,
-    cx: 5,
-    cy: 5,
-    r: 3,
+    patternWidth: 4,
+    patternHeight: 4,
   },
   transforms: Transforms,
 }
@@ -22,9 +19,6 @@ const SvgComponent = props => {
     params: {
       patternWidth = setup.patternWidth,
       patternHeight = setup.patternHeight,
-      cx = setup.cx,
-      cy = setup.cy,
-      r = setup.r
     },
     transforms
   } = props
@@ -42,18 +36,32 @@ const SvgComponent = props => {
             width={patternWidth}
             height={patternHeight}
           >
-            <Circle cx={cx} cy={cy} r={r} fill="none" stroke="#000" />
+            <Rect x="0" y="0" width="2" height="2" fill="#000" />
+            <Rect
+              x="0"
+              y="0"
+              width={Math.round(patternWidth / 2)}
+              height={Math.round(patternHeight / 2)}
+              fill="#000"
+            />
+            <Rect
+              x={Math.round(patternWidth / 2)}
+              y={Math.round(patternHeight / 2)}
+              width={Math.round(patternWidth / 2)}
+              height={Math.round(patternHeight / 2)}
+              fill="#000"
+            />
           </Pattern>
         </Defs>
         <Rect width="100%" height="100%" fill="url(#prefix__a)" />
       </Svg>
     </Animated.View>
-  )
+  );
 }
-
+    ;
 export default {
-  name: 'Circle mesh',
-  description: 'Circle with center and radius setup',
+  name: 'Checkers',
+  description: 'Tiny checkers',
   setup,
-  getMesh: (props) => SvgComponent(props),
-}
+  getMesh: props => SvgComponent(props)
+};

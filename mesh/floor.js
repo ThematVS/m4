@@ -10,9 +10,6 @@ const setup = {
   params: {
     patternWidth: 10,
     patternHeight: 10,
-    cx: 5,
-    cy: 5,
-    r: 3,
   },
   transforms: Transforms,
 }
@@ -22,9 +19,6 @@ const SvgComponent = props => {
     params: {
       patternWidth = setup.patternWidth,
       patternHeight = setup.patternHeight,
-      cx = setup.cx,
-      cy = setup.cy,
-      r = setup.r
     },
     transforms
   } = props
@@ -42,7 +36,7 @@ const SvgComponent = props => {
             width={patternWidth}
             height={patternHeight}
           >
-            <Circle cx={cx} cy={cy} r={r} fill="none" stroke="#000" />
+            <Path d="M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z" fill="#000" />
           </Pattern>
         </Defs>
         <Rect width="100%" height="100%" fill="url(#prefix__a)" />
@@ -52,8 +46,8 @@ const SvgComponent = props => {
 }
 
 export default {
-  name: 'Circle mesh',
-  description: 'Circle with center and radius setup',
+  name: 'Floor mesh',
+  description: 'Floor',
   setup,
   getMesh: (props) => SvgComponent(props),
 }
